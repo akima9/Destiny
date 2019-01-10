@@ -10,7 +10,7 @@ import com.destiny.service.notice.NoticeService;
 @Service("noticeServiceImpl")
 public class NoticeServiceImpl implements NoticeService{
 	@Autowired
-	@Qualifier("letterDaoImpl")
+	@Qualifier("noticeDaoImpl")
 	private NoticeDao noticeDao;
 
 	public void setNoticeDao(NoticeDao noticeDao) {

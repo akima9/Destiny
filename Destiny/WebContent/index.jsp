@@ -10,9 +10,24 @@
 	$(function() {
 		
 		$("a[href='#' ]:contains('맛집정보')").on("click", function() {
-			alert("눌림~")
 			self.location = "/info/listRestaurantInfo"
 		});
+		$("a[href='#' ]:contains('모임')").on("click", function() {
+			self.location = "/meeting/listMeeting"
+		});
+		$("a[href='#' ]:contains('채팅')").on("click", function() {
+			self.location = "/chatting/mainChatting"
+		});
+		$("a[href='#' ]:contains('내주변')").on("click", function() {
+			self.location = "/find/mainFind"
+		});
+		$("a[href='#' ]:contains('로그인')").on("click", function() {
+			self.location = "/user/login"
+		});
+		$("a[href='#' ]:contains('회원가입')").on("click", function() {
+			self.location = "/user/addUser"
+		});
+		
 		
 	});
 </script>
@@ -28,6 +43,8 @@
 		<li><a href="#">맛집정보</a></li>
 		<li><a href="#">연애조언</a></li>
 		<li><a href="#">공지사항</a></li>
+		<li><a href="#">로그인</a></li>
+		<li><a href="#">회원가입</a></li>
 	</ul>
 </body>
 </html>

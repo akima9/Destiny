@@ -33,7 +33,6 @@ public class InfoController {
 	///Method
 	@RequestMapping(value="listRestaurantInfo", method=RequestMethod.GET)
 	public ModelAndView listRestaurantInfo() throws Exception{
-		System.out.println("InfoController.listRestaurantInfo()½ÇÇà===============================================");
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("redirect:/community/getRestaurantInfoList.jsp");
 		return modelAndView;

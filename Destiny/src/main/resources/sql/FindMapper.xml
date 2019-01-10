@@ -1,1 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="FindMapper">
+ 	
+ 	
+	<resultMap id="userSelectMap" type="user">
+		<result property="tranNo"				column="tran_no"			jdbcType="INTEGER" /> 
+  		<result property="paymentOption"		column="payment_option"		jdbcType="CHAR" /> 
+  		<result property="receiverName"			column="receiver_name"		jdbcType="VARCHAR" /> 
+  		<result property="receiverPhone"		column="receiver_phone"		jdbcType="VARCHAR" /> 
+  		<result property="divyAddr"				column="demailaddr"			jdbcType="VARCHAR" /> 
+  		<result property="divyRequest"			column="dlvy_request"		jdbcType="VARCHAR" /> 
+  		<result property="tranCode"				column="tran_status_code"	jdbcType="CHAR" /> 
+  		<result property="orderDate"			column="order_data"			jdbcType="DATE" /> 
+  		<result property="divyDate"				column="dlvy_date"			jdbcType="DATE" /> 
+	  	<association property="purchaseProd" 	resultMap="productDomain"/> 
+	  	<association property="buyer" 			resultMap="userDomain"/> 
+	</resultMap>
+	 
+	 <!-- SQL : SELECT ONE -->
+	 <!-- <select 	id="getPurchase"	parameterType="string"	resultMap="purchaseSelectMap">
+		SELECT
+		 tran_no, prod_no, buyer_id, payment_option, receiver_name, receiver_phone, demailaddr,
+		 dlvy_request, tran_status_code, order_data, TO_CHAR(dlvy_date,'yyyymmdd') dlvy_date
+  		FROM transaction
+  		WHERE tran_no= #{tranNo} 
+  		ORDER BY tran_no DESC
+	 </select> -->
+	 <select 	id="getPurchase"	parameterType="string"	resultMap="purchaseSelectMap">
+		SELECT t.tran_no, t.prod_no, t.buyer_id, t.payment_option, t.receiver_name, t.receiver_phone,
+	 			t.demailaddr, t.dlvy_request, NVL(t.tran_status_code,'0') tran_status_code, t.order_data, t.dlvy_date, p.prod_name, p.image_file, p.manufacture_day
+ 		FROM transaction t, product p
+		WHERE  p.prod_no = t.prod_no(+) AND tran_no= #{tranNo} 
+  		ORDER BY tran_no DESC
+	 </select>
+	 
+		 
+	<!-- SQL : SELECT LIST -->
+	<select  id="getPurchaseList"  parameterType="map"	resultMap="purchaseSelectMap">
+	  	SELECT *
+	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
+	  					FROM( SELECT t.tran_no, t.prod_no, t.buyer_id, t.payment_option, t.receiver_name, t.receiver_phone,
+	 							t.demailaddr, t.dlvy_request, NVL(t.tran_status_code,'0') tran_status_code, t.order_data, t.dlvy_date, p.prod_name, p.image_file, p.manufacture_day
+ 								FROM transaction t, product p
+								 WHERE  p.prod_no = t.prod_no(+) AND
+									 t.buyer_id = #{buyerId} 
+								 ORDER BY tran_no DESC ) inner_table
+						WHERE ROWNUM &lt;= #{search.endRowNum} )
+		WHERE row_seq BETWEEN #{search.startRowNum} AND #{search.endRowNum} 
+	 </select>
+	
+	<!-- SQL : SELECT ROW Count -->	 
+	 <select  id="getTotalCount"  parameterType="search"	 resultType="int">
+	  	SELECT COUNT(*)
+	  	FROM( SELECT tran_no, prod_no, buyer_id, payment_option, receiver_name, receiver_phone, demailaddr,
+	  				 dlvy_request, NVL(tran_status_code,'0') tran_status_code, order_data, dlvy_date 
+ 			  FROM transaction
+ 			  WHERE buyer_id= #{buyerId} ) countTable 					
+	 </select>
+	 
+</mapper>

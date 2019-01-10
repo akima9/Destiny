@@ -1,7 +1,6 @@
 package com.destiny.service.domain;
 
-import java.util.Date;
-import java.util.List;
+import java.sql.Date;
 
 public class User {
 	
@@ -12,15 +11,20 @@ public class User {
 	private Date	birthday;
 	private String	profile;
 	private String	nickName;
-	private String	gender;
+	private char	gender;
 	private String	phone;
-	private String	interest1;
-	private String	interest2;
-	private String	interest3;
-	private String	userGrade;
-	private String	myType;
-	private List	partnerType;
-	private String	userState;
+	private int		attendCount;
+	private Date	lastLoginDay;
+	private	int		warningCount;
+	private char	userGrade;
+	private int		myType;
+	private int		firstType;
+	private int		secondType;
+	private int		thirdType;
+	private int		firstInterest;
+	private int		secondInterest;
+	private int		thirdInterest;
+	
 	public String getUserId() {
 		return userId;
 	}
@@ -63,10 +67,10 @@ public class User {
 	public void setNickName(String nickName) {
 		this.nickName = nickName;
 	}
-	public String getGender() {
+	public char getGender() {
 		return gender;
 	}
-	public void setGender(String gender) {
+	public void setGender(char gender) {
 		this.gender = gender;
 	}
 	public String getPhone() {
@@ -75,56 +79,84 @@ public class User {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public String getInterest1() {
-		return interest1;
+	public int getAttendCount() {
+		return attendCount;
 	}
-	public void setInterest1(String interest1) {
-		this.interest1 = interest1;
+	public void setAttendCount(int attendCount) {
+		this.attendCount = attendCount;
 	}
-	public String getInterest2() {
-		return interest2;
+	public Date getLastLoginDay() {
+		return lastLoginDay;
 	}
-	public void setInterest2(String interest2) {
-		this.interest2 = interest2;
+	public void setLastLoginDay(Date lastLoginDay) {
+		this.lastLoginDay = lastLoginDay;
 	}
-	public String getInterest3() {
-		return interest3;
+	public int getWarningCount() {
+		return warningCount;
 	}
-	public void setInterest3(String interest3) {
-		this.interest3 = interest3;
+	public void setWarningCount(int warningCount) {
+		this.warningCount = warningCount;
 	}
-	public String getUserGrade() {
+	public int getFirstInterest() {
+		return firstInterest;
+	}
+	public void setFirstInterest(int firstInterest) {
+		this.firstInterest = firstInterest;
+	}
+	public int getSecondInterest() {
+		return secondInterest;
+	}
+	public void setSecondInterest(int secondInterest) {
+		this.secondInterest = secondInterest;
+	}
+	public int getThirdInterest() {
+		return thirdInterest;
+	}
+	public void setThirdInterest(int thirdInterest) {
+		this.thirdInterest = thirdInterest;
+	}
+	public char getUserGrade() {
 		return userGrade;
 	}
-	public void setUserGrade(String userGrade) {
+	public void setUserGrade(char userGrade) {
 		this.userGrade = userGrade;
 	}
-	public String getMyType() {
+	public int getMyType() {
 		return myType;
 	}
-	public void setMyType(String myType) {
+	public void setMyType(int myType) {
 		this.myType = myType;
 	}
-	public List getPartnerType() {
-		return partnerType;
+	public int getFirstType() {
+		return firstType;
 	}
-	public void setPartnerType(List partnerType) {
-		this.partnerType = partnerType;
+	public void setFirstType(int firstType) {
+		this.firstType = firstType;
 	}
-	public String getUserState() {
-		return userState;
+	public int getSecondType() {
+		return secondType;
 	}
-	public void setUserState(String userState) {
-		this.userState = userState;
+	public void setSecondType(int secondType) {
+		this.secondType = secondType;
 	}
+	public int getThirdType() {
+		return thirdType;
+	}
+	public void setThirdType(int thirdType) {
+		this.thirdType = thirdType;
+	}
+
+	
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", password=" + password + ", email=" + email + ", address=" + address
 				+ ", birthday=" + birthday + ", profile=" + profile + ", nickName=" + nickName + ", gender=" + gender
-				+ ", phone=" + phone + ", interest1=" + interest1 + ", interest2=" + interest2 + ", interest3="
-				+ interest3 + ", userGrade=" + userGrade + ", myType=" + myType + ", partnerType=" + partnerType
-				+ ", userState=" + userState + "]";
+				+ ", phone=" + phone + ", attendCount=" + attendCount + ", lastLoginDay=" + lastLoginDay
+				+ ", warningCount=" + warningCount + ", firstInterest=" + firstInterest + ", secondInterest="
+				+ secondInterest + ", thirdInterest=" + thirdInterest + ", userGrade=" + userGrade + ", myType="
+				+ myType + ", firstType=" + firstType + ", secondType=" + secondType + ", thirdType=" + thirdType+"]";
 	}
+	
 	
 	
 

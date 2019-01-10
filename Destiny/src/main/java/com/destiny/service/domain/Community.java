@@ -5,29 +5,68 @@ import java.util.List;
 
 public class Community {
 	
-	private String	postNo;
-	private String	postTitle;
-	private Date	writeDate;
-	private int		views;
-	private int		likeCount;
-	private String	postKindNo;
-	private String	postContents;
-	private int		commentCount;
-	private List	postImg;
-	private List	postVideo;
-	private List	postMap;
-	private boolean	importRank;
-	public String getPostNo() {
-		return postNo;
+	private int	communityNo;
+	private String	writerId;
+	private int	meetingNo;
+	private String category;
+	private String userGrade;
+	private String title;
+	private String writerNickName;
+	private String detail;
+	private Date writeDate;
+	private int views;
+	private int like;
+	private String importRank;
+	private String viewCondition;
+	
+	
+	public int getCommunityNo() {
+		return communityNo;
 	}
-	public void setPostNo(String postNo) {
-		this.postNo = postNo;
+	public void setCommunityNo(int communityNo) {
+		this.communityNo = communityNo;
 	}
-	public String getPostTitle() {
-		return postTitle;
+	public String getWriterId() {
+		return writerId;
 	}
-	public void setPostTitle(String postTitle) {
-		this.postTitle = postTitle;
+	public void setWriterId(String writerId) {
+		this.writerId = writerId;
+	}
+	public int getMeetingNo() {
+		return meetingNo;
+	}
+	public void setMeetingNo(int meetingNo) {
+		this.meetingNo = meetingNo;
+	}
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
+	}
+	public String getUserGrade() {
+		return userGrade;
+	}
+	public void setUserGrade(String userGrade) {
+		this.userGrade = userGrade;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public String getWriterNickName() {
+		return writerNickName;
+	}
+	public void setWriterNickName(String writerNickName) {
+		this.writerNickName = writerNickName;
+	}
+	public String getDetail() {
+		return detail;
+	}
+	public void setDetail(String detail) {
+		this.detail = detail;
 	}
 	public Date getWriteDate() {
 		return writeDate;
@@ -41,61 +80,32 @@ public class Community {
 	public void setViews(int views) {
 		this.views = views;
 	}
-	public int getLikeCount() {
-		return likeCount;
+	public int getLike() {
+		return like;
 	}
-	public void setLikeCount(int likeCount) {
-		this.likeCount = likeCount;
+	public void setLike(int like) {
+		this.like = like;
 	}
-	public String getPostKindNo() {
-		return postKindNo;
-	}
-	public void setPostKindNo(String postKindNo) {
-		this.postKindNo = postKindNo;
-	}
-	public String getPostContents() {
-		return postContents;
-	}
-	public void setPostContents(String postContents) {
-		this.postContents = postContents;
-	}
-	public int getCommentCount() {
-		return commentCount;
-	}
-	public void setCommentCount(int commentCount) {
-		this.commentCount = commentCount;
-	}
-	public List getPostImg() {
-		return postImg;
-	}
-	public void setPostImg(List postImg) {
-		this.postImg = postImg;
-	}
-	public List getPostVideo() {
-		return postVideo;
-	}
-	public void setPostVideo(List postVideo) {
-		this.postVideo = postVideo;
-	}
-	public List getPostMap() {
-		return postMap;
-	}
-	public void setPostMap(List postMap) {
-		this.postMap = postMap;
-	}
-	public boolean isImportRank() {
+	public String getImportRank() {
 		return importRank;
 	}
-	public void setImportRank(boolean importRank) {
+	public void setImportRank(String importRank) {
 		this.importRank = importRank;
 	}
+	public String getViewCondition() {
+		return viewCondition;
+	}
+	public void setViewCondition(String viewCondition) {
+		this.viewCondition = viewCondition;
+	}
+	
+	
 	@Override
 	public String toString() {
-		return "Community [postNo=" + postNo + ", postTitle=" + postTitle + ", writeDate=" + writeDate + ", views="
-				+ views + ", likeCount=" + likeCount + ", postKindNo=" + postKindNo + ", postContents=" + postContents
-				+ ", commentCount=" + commentCount + ", postImg=" + postImg + ", postVideo=" + postVideo + ", postMap="
-				+ postMap + ", importRank=" + importRank + "]";
+		return "Community [communityNo=" + communityNo + ", writerId=" + writerId + ", meetingNo=" + meetingNo
+				+ ", category=" + category + ", userGrade=" + userGrade + ", title=" + title + ", writerNickName="
+				+ writerNickName + ", detail=" + detail + ", writeDate=" + writeDate + ", views=" + views + ", like="
+				+ like + ", importRank=" + importRank + ", viewCondition=" + viewCondition + "]";
 	}
 
-	
 }

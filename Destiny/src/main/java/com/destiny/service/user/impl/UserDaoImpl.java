@@ -5,8 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
+import com.destiny.service.domain.User;
+import com.destiny.service.user.UserDao;
+
 @Repository("userDaoImpl")
-public class UserDaoImpl {
+public class UserDaoImpl implements UserDao{
+
 	@Autowired
 	@Qualifier("sqlSessionTemplate")
 	private SqlSession sqlSession;
@@ -16,5 +20,10 @@ public class UserDaoImpl {
 	
 	public UserDaoImpl() {
 		System.out.println(this.getClass());
+	}
+	
+	@Override
+	public User getUser(String userId) throws Exception {
+		return sqlSession.selectOne("UserMapper.getUser", userId);
 	}
 }

@@ -4,19 +4,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import com.destiny.service.review.ReviewDao;
+import com.destiny.service.domain.User;
+import com.destiny.service.user.UserDao;
+import com.destiny.service.user.UserService;
 
 @Service("userServiceImpl")
-public class UserServiceImpl {
-	@Autowired
-	@Qualifier("reviewDaoImpl")
-	private ReviewDao reviewDao;
+public class UserServiceImpl implements UserService {
 
-	public void setReviewDao(ReviewDao reviewDao) {
-		this.reviewDao = reviewDao;
+	@Autowired
+	@Qualifier("userDaoImpl")
+	private UserDao userDao;
+
+	public void setUserDao(UserDao userDao) {
+		this.userDao = userDao;
 	}
 	
 	public UserServiceImpl() {
 		System.out.println(this.getClass());
+	}
+	
+	@Override
+	public User getUser(String userId) throws Exception {
+		return userDao.getUser(userId);
 	}
 }

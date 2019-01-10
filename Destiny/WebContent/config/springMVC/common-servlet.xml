@@ -85,6 +85,11 @@
 	<mvc:resources mapping="/css/**" location="/css/" />
    	<mvc:resources mapping="/images/**" location="/images/" />
    	<mvc:resources mapping="/javascript/**" location="/javascript/" />
+   	
+   	<!-- 스마트에디터 적용으로 추가된 부분 : start -->
+   	<mvc:resources mapping="/se2/**" location="/se2/" />
+   	<!-- 스마트에디터 적용으로 추가된 부분 : end -->
+   	
 	<!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
    	
 

@@ -12,7 +12,7 @@
 	
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css" integrity="sha384-PmY9l28YgO4JwMKbTvgaS7XNZJ30MK9FAZjjzXtlqyZCqBY6X6bXIkM++IkyinN+" crossorigin="anonymous">
-	
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<!-- Optional theme -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap-theme.min.css" integrity="sha384-jzngWsPS6op3fgRCDTESqrEJwRKck+CILhJVO5VvaAZCq8JYf8HsR/HPpBOOPZfR" crossorigin="anonymous">
 	
@@ -21,7 +21,11 @@
 	
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	
-	
+	<!-- Bootstrap core CSS -->
+    
+    <link href="carousel.css" rel="stylesheet">
+    
+   <!-- ÄÉ·¯¼¿ ¿Ï·á -->
 	<!--  ///////////////////////// JavaScript ////////////////////////// -->
 	<script type="text/javascript">
 	

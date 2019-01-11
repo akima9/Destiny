@@ -37,7 +37,9 @@
 		<mapper resource="sql/LetterMapper.xml"/>
 		<mapper resource="sql/MeetingMapper.xml"/>
 		<mapper resource="sql/PushMapper.xml"/>
-		<mapper resource="sql/UserMapper.xml"/>
+		
 	</mappers> -->
-
+	<mappers>
+		<mapper resource="sql/UserMapper.xml"/>
+	</mappers>
 </configuration>

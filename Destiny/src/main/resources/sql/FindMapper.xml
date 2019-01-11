@@ -5,62 +5,37 @@
 		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="FindMapper">
+<mapper namespace="FindMapper">	
  	
- 	
-	<resultMap id="userSelectMap" type="user">
-		<result property="tranNo"				column="tran_no"			jdbcType="INTEGER" /> 
-  		<result property="paymentOption"		column="payment_option"		jdbcType="CHAR" /> 
-  		<result property="receiverName"			column="receiver_name"		jdbcType="VARCHAR" /> 
-  		<result property="receiverPhone"		column="receiver_phone"		jdbcType="VARCHAR" /> 
-  		<result property="divyAddr"				column="demailaddr"			jdbcType="VARCHAR" /> 
-  		<result property="divyRequest"			column="dlvy_request"		jdbcType="VARCHAR" /> 
-  		<result property="tranCode"				column="tran_status_code"	jdbcType="CHAR" /> 
-  		<result property="orderDate"			column="order_data"			jdbcType="DATE" /> 
-  		<result property="divyDate"				column="dlvy_date"			jdbcType="DATE" /> 
-	  	<association property="purchaseProd" 	resultMap="productDomain"/> 
-	  	<association property="buyer" 			resultMap="userDomain"/> 
+	<resultMap id="userSelectMap" type="com.destiny.service.domain.User">
+		<result property="userId" 			column="user_id" 			jdbcType="VARCHAR"/>
+		<result property="password" 		column="password" 			jdbcType="VARCHAR" />
+		<result property="nickName"			column="nick_name" 			jdbcType="VARCHAR" />
+		<result property="userGrade"		column="user_grade" 		jdbcType="CHAR"/>
+		<result property="email" 			column="email" 				jdbcType="VARCHAR" />
+		<result property="birthday" 		column="birthday" 			jdbcType="DATE" />
+		<result property="address" 			column="address" 			jdbcType="VARCHAR" />
+		<result property="profile" 			column="profile_img" 		jdbcType="VARCHAR" />
+		<result property="gender" 			column="gender" 			jdbcType="CHAR" />
+		<result property="phone" 			column="phone" 				jdbcType="VARCHAR" />
+		<result property="attendCount" 		column="attend_count" 		jdbcType="INTEGER" />
+		<result property="lastLoginDay" 	column="last_login_day" 	jdbcType="DATE" />
+		<result property="warningCount" 	column="warning_count" 		jdbcType="INTEGER" />
+		<result property="myType" 			column="my_type" 			jdbcType="NUMERIC" />
+		<result property="firstType" 		column="first_type" 		jdbcType="NUMERIC" />
+		<result property="secondType" 		column="second_type" 		jdbcType="NUMERIC" />
+		<result property="thirdType" 		column="thrid_type" 		jdbcType="NUMERIC" />
+		<result property="firstInterest" 	column="first_interest" 	jdbcType="NUMERIC" />
+		<result property="secondInterest" 	column="second_interest" 	jdbcType="NUMERIC" />
+		<result property="thirdInterest" 	column="third_interest" 	jdbcType="NUMERIC" />			
 	</resultMap>
 	 
 	 <!-- SQL : SELECT ONE -->
-	 <!-- <select 	id="getPurchase"	parameterType="string"	resultMap="purchaseSelectMap">
-		SELECT
-		 tran_no, prod_no, buyer_id, payment_option, receiver_name, receiver_phone, demailaddr,
-		 dlvy_request, tran_status_code, order_data, TO_CHAR(dlvy_date,'yyyymmdd') dlvy_date
-  		FROM transaction
-  		WHERE tran_no= #{tranNo} 
-  		ORDER BY tran_no DESC
-	 </select> -->
-	 <select 	id="getPurchase"	parameterType="string"	resultMap="purchaseSelectMap">
-		SELECT t.tran_no, t.prod_no, t.buyer_id, t.payment_option, t.receiver_name, t.receiver_phone,
-	 			t.demailaddr, t.dlvy_request, NVL(t.tran_status_code,'0') tran_status_code, t.order_data, t.dlvy_date, p.prod_name, p.image_file, p.manufacture_day
- 		FROM transaction t, product p
-		WHERE  p.prod_no = t.prod_no(+) AND tran_no= #{tranNo} 
-  		ORDER BY tran_no DESC
+	 <select 	id="getUserResult"	parameterType="com.destiny.service.domain.Find" resultType="int">
+		SELECT COUNT(*)
+		 FROM users 
+		 WHERE gender = #{selectGender}
 	 </select>
 	 
-		 
-	<!-- SQL : SELECT LIST -->
-	<select  id="getPurchaseList"  parameterType="map"	resultMap="purchaseSelectMap">
-	  	SELECT *
-	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
-	  					FROM( SELECT t.tran_no, t.prod_no, t.buyer_id, t.payment_option, t.receiver_name, t.receiver_phone,
-	 							t.demailaddr, t.dlvy_request, NVL(t.tran_status_code,'0') tran_status_code, t.order_data, t.dlvy_date, p.prod_name, p.image_file, p.manufacture_day
- 								FROM transaction t, product p
-								 WHERE  p.prod_no = t.prod_no(+) AND
-									 t.buyer_id = #{buyerId} 
-								 ORDER BY tran_no DESC ) inner_table
-						WHERE ROWNUM &lt;= #{search.endRowNum} )
-		WHERE row_seq BETWEEN #{search.startRowNum} AND #{search.endRowNum} 
-	 </select>
-	
-	<!-- SQL : SELECT ROW Count -->	 
-	 <select  id="getTotalCount"  parameterType="search"	 resultType="int">
-	  	SELECT COUNT(*)
-	  	FROM( SELECT tran_no, prod_no, buyer_id, payment_option, receiver_name, receiver_phone, demailaddr,
-	  				 dlvy_request, NVL(tran_status_code,'0') tran_status_code, order_data, dlvy_date 
- 			  FROM transaction
- 			  WHERE buyer_id= #{buyerId} ) countTable 					
-	 </select>
 	 
 </mapper>

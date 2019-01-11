@@ -10,12 +10,12 @@ import com.destiny.service.domain.User;
 public interface FindDao {
 	
 	//회원수 찾기
-		public int userResult(Find find) throws Exception;
+	public int getUserResult(Find find) throws Exception;
 	
 	//모임리스트 찾기
-	public Map<String, Object> meetingResult(String locationName) throws Exception;
+	public Map<String, Object> getMeetingResult(String locationName) throws Exception;
 	
 	// 게시판 Page 처리를 위한 전체Row(totalCount)  return
-	public int getTotalCount(Search search) throws Exception ;
+	public int getTotalCount(Find find) throws Exception ;
 	
 }

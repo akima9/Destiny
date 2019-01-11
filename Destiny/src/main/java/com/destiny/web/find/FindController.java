@@ -4,11 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.destiny.service.community.CommunityService;
+import com.destiny.service.domain.Find;
 import com.destiny.service.find.FindService;
 
 @Controller
@@ -46,14 +48,23 @@ public class FindController {
 			return modelAndView;
 		}
 		
-		@RequestMapping(value="getUserResult", method=RequestMethod.GET)
-		public ModelAndView getUserResult() throws Exception{
+		@RequestMapping(value="getUserResult", method=RequestMethod.POST)
+		public ModelAndView getUserResult(@ModelAttribute("find") Find find) throws Exception{
+			System.out.println("/find/getUserResult : POST");
+			System.out.println("FIND : "+ find +"======================");
+			
+			int totalCount = findService.getUserResult(find);
+			
+			System.out.println("FindMapper.getUserResult °¬´Ù¿È : " + totalCount);
+			
 			ModelAndView modelAndView = new ModelAndView();
-			modelAndView.setViewName("redirect:/find/getUserResult.jsp");
+			modelAndView.addObject("totalCount",totalCount);
+			modelAndView.setViewName("forward:/find/getUserResult.jsp");
+			System.out.println("°¬´Ù¿Â °á°ú find : " + find);
 			return modelAndView;
 		}
 		
-		@RequestMapping(value="selectMeeting", method=RequestMethod.GET)
+		/*@RequestMapping(value="selectMeeting", method=RequestMethod.GET)
 		public ModelAndView selectMeeting() throws Exception{
 			ModelAndView modelAndView = new ModelAndView();
 			modelAndView.setViewName("redirect:/find/selectMeeting.jsp");
@@ -65,6 +76,6 @@ public class FindController {
 			ModelAndView modelAndView = new ModelAndView();
 			modelAndView.setViewName("redirect:/find/getMeetingResult.jsp");
 			return modelAndView;
-		}
+		}*/
 
 }

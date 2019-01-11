@@ -49,24 +49,24 @@
 			<div class="row">
 		  		<div class="col-xs-4 col-md-2"><strong>己喊</strong></div>
 				<div class="col-xs-8 col-md-4">
-					<input type="radio" id="gender" name="gender">巢磊</input>
-					<input type="radio" id="gender" name="gender">咯磊</input>
+					<input type="radio" id="selectGender" name="selectGender" value='M'>巢磊</input>
+					<input type="radio" id="selectGender" name="selectGender" value='W'>咯磊</input>
 				</div>
 			</div>
 			
 			<hr/>
 			
-			<div class="row">
+			 <div class="row">
 		  		<div class="col-xs-4 col-md-2 "><strong>楷飞</strong></div>
 				<div class="col-xs-8 col-md-4">
 					<select name="ageRange">
-						<option value="">20技 ~ 24技</option>
-						<option value="">24技 ~ 29技</option>
-						<option value="">30技 ~ 34技</option>
-						<option value="">34技 ~ 49技</option>
-						<option value="">40技 ~ 44技</option>
-						<option value="">44技 ~ 59技</option>
-						<option value="">50技 ~ </option>
+						<option value="1">$20技 ~ 24技</option>
+						<option value="2">24技 ~ 29技</option>
+						<option value="3">30技 ~ 34技</option>
+						<option value="4">34技 ~ 49技</option>
+						<option value="5">40技 ~ 44技</option>
+						<option value="6">44技 ~ 59技</option>
+						<option value="7">50技 ~ </option>
 					</select>
 				</div>
 			</div>

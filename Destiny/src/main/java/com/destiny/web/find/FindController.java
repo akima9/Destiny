@@ -49,12 +49,18 @@ public class FindController {
 		}
 		
 		@RequestMapping(value="getUserResult", method=RequestMethod.POST)
-		public ModelAndView getUserResult(@ModelAttribute("find") Find find ) throws Exception{
+		public ModelAndView getUserResult(@ModelAttribute("find") Find find) throws Exception{
 			System.out.println("/find/getUserResult : POST");
 			System.out.println("FIND : "+ find +"======================");
-			findService.userResult(find);
+			
+			int totalCount = findService.getUserResult(find);
+			
+			System.out.println("FindMapper.getUserResult °¬´Ù¿È : " + totalCount);
+			
 			ModelAndView modelAndView = new ModelAndView();
+			modelAndView.addObject("totalCount",totalCount);
 			modelAndView.setViewName("forward:/find/getUserResult.jsp");
+			System.out.println("°¬´Ù¿Â °á°ú find : " + find);
 			return modelAndView;
 		}
 		

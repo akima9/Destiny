@@ -48,7 +48,7 @@
 	
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2"><strong>¼ºº°</strong></div>
-			<div class="col-xs-8 col-md-4">${param.gender}</div>
+			<div class="col-xs-8 col-md-4">${totalCount}</div>
 		</div>
 		
 		<hr/>

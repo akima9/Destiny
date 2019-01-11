@@ -1,8 +1,6 @@
 package com.destiny.web.user;
 
 import java.sql.Date;
-import java.time.LocalTime;
-import java.time.temporal.ChronoUnit;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -173,5 +171,27 @@ public class UserController {
 		
 		return modelAndView;
 	}
+	
+	@RequestMapping(value="addUser", method=RequestMethod.GET)
+	public ModelAndView addUser() throws Exception{
+		System.out.println("/user/addUser : GET");
+		
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("redirect:/user/userInfo/addUserView.jsp");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="addUser", method=RequestMethod.POST)
+	public ModelAndView addUser(@ModelAttribute("user") User user) throws Exception{
+		System.out.println("/user/addUser : POST");
+		
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("redirect:/user/loginView.jsp");
+		
+		userService.addUser(user);
+		
+		return modelAndView;
+	}
+	
 	
 }

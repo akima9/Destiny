@@ -5,16 +5,17 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.destiny.service.letter.LetterDao;
+import com.destiny.service.meeting.MeetingDao;
 import com.destiny.service.meeting.MeetingService;
 
 @Service("meetingServiceImpl")
 public class MeetingServiceImpl implements MeetingService {
 	@Autowired
-	@Qualifier("letterDaoImpl")
-	private LetterDao letterDao;
+	@Qualifier("meetingDaoImpl")
+	private MeetingDao meetingDao;
 
-	public void setLetterDao(LetterDao letterDao) {
-		this.letterDao = letterDao;
+	public void setLetterDao(MeetingDao meetingDao) {
+		this.meetingDao = meetingDao;
 	}
 	
 	public MeetingServiceImpl() {

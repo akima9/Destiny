@@ -1,8 +1,9 @@
 package com.destiny.service.user;
 
+import java.util.List;
 import java.util.Map;
 
-import com.destiny.common.Search;
+import com.destiny.service.domain.Location;
 import com.destiny.service.domain.User;
 
 
@@ -11,5 +12,11 @@ public interface UserService {
 	
 	// 내정보확인 / 로그인
 	public User getUser(String userId) throws Exception;
+	
+	public void attendLogin(User user) throws Exception;
+	
+	public void addUser(User user) throws Exception;
+	
+	public Map<String, Object> getLocationList(String city) throws Exception;
 		
 }

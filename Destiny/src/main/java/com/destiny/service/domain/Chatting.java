@@ -4,15 +4,16 @@ import java.util.Date;
 
 public class Chatting {
 	
+	private int 			chattingNo;
 	private String		beforeTranslationText;
 	private String		afterTranslationText;
-	private Date		chattingDate;
+	private Date			chattingDate;
 	private String		chattingTime;
 	private String		anonymousNickName;
 	private String		language;
 	private int			favorability;
 	private Telepathy	telepathy;
-	private boolean		contactMeeting;
+	private boolean	contactMeeting;
 	
 	
 	
@@ -122,14 +123,31 @@ public class Chatting {
 		this.contactMeeting = contactMeeting;
 	}
 
+	
+
+	public int getChattingNo() {
+		return chattingNo;
+	}
+
+
+
+	public void setChattingNo(int chattingNo) {
+		this.chattingNo = chattingNo;
+	}
+
 
 
 	@Override
 	public String toString() {
-		return "Chatting [beforeTranslationText=" + beforeTranslationText + ", afterTranslationText="
-				+ afterTranslationText + ", chattingTime=" + chattingTime + ", anonymousNickName=" + anonymousNickName
-				+ ", language=" + language + ", favorability=" + favorability + ", contactMeeting=" + contactMeeting
-				+ "]";
+		return "Chatting [chattingNo=" + chattingNo + ", beforeTranslationText=" + beforeTranslationText
+				+ ", afterTranslationText=" + afterTranslationText + ", chattingDate=" + chattingDate
+				+ ", chattingTime=" + chattingTime + ", anonymousNickName=" + anonymousNickName + ", language="
+				+ language + ", favorability=" + favorability + ", telepathy=" + telepathy + ", contactMeeting="
+				+ contactMeeting + "]";
 	}
+
+
+
+	
 	
 }

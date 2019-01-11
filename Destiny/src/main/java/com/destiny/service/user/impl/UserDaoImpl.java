@@ -1,10 +1,13 @@
 package com.destiny.service.user.impl;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
+import com.destiny.service.domain.Location;
 import com.destiny.service.domain.User;
 import com.destiny.service.user.UserDao;
 
@@ -26,4 +29,22 @@ public class UserDaoImpl implements UserDao{
 	public User getUser(String userId) throws Exception {
 		return sqlSession.selectOne("UserMapper.getUser", userId);
 	}
+
+	@Override
+	public void attendLogin(User user) throws Exception {
+		sqlSession.update("UserMapper.attendLogin", user);
+	}
+	
+	@Override
+	public void addUser(User user) throws Exception {
+		sqlSession.insert("UserMapper.addUser", user);
+	}
+
+	@Override
+	public List<Location> getLocationList(String city) throws Exception {
+		return sqlSession.selectList("UserMapper.locationList", city);
+	}
+	
+	
+	
 }

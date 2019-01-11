@@ -199,6 +199,7 @@ CREATE TABLE meeting_act_crew_list (
 CREATE TABLE COMMUNITY(
     community_no					NUMBER			NOT NULL,
     community_writer_id			VARCHAR2(20)					REFERENCES users(user_id),
+    meeting_no					NUMBER					REFERENCES meeting(meeting_no),
     category						CHAR(3)				NOT NULL,
     community_user_grade			CHAR(3)				NOT NULL,
     community_title				VARCHAR2(100)		NOT NULL,

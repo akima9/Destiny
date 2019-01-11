@@ -25,16 +25,16 @@ public class FindServiceImpl implements FindService {
 	public FindServiceImpl() {
 		System.out.println(this.getClass());
 	}
-
+	
 	@Override
-	public Map<String, Object> meetingResult(String locationName) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public int getUserResult(Find find) throws Exception {
+		return findDao.getUserResult(find);
 	}
 
 	@Override
-	public int userResult(Find find) throws Exception {
-		return findDao.userResult(find);
+	public Map<String, Object> getMeetingResult(String locationName) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

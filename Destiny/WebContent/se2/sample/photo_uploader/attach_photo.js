@@ -335,8 +335,9 @@
     		sUploadURL;
     	
     	/*수정된 부분 : start*/
-    	sUploadURL= '/multiplePhotoUpload'; 	//다중파일업로드 URL
-    	/*sUploadURL= 'file_uploader_html5.php'; 	//upload URL*/
+    	/*sUploadURL= '/info/photoUpload'; 	//단일파일업로드 URL*/
+    	/*sUploadURL= '/info/multiplePhotoUpload'; 	//다중파일업로드 URL*/
+    	sUploadURL= 'file_uploader_html5.php'; 	//upload URL
     	/*수정된 부분 : end*/
     	
     	//파일을 하나씩 보내고, 결과를 받음.
@@ -553,16 +554,16 @@
   		checkDragAndDropAPI();
   		
   		if(bSupportDragAndDropAPI){
-  			$Element("pop_container2").hide();
-  			$Element("pop_container").show();
+  			$Element("pop_container2").show();;
+  			$Element("pop_container").hide();
   			
   			welTextGuide.removeClass("nobg");
   			welTextGuide.className("bg");
   			
   			addEvent();
   		} else {
-  			$Element("pop_container").hide();
-  			$Element("pop_container2").show();
+  			$Element("pop_container").show();
+  			$Element("pop_container2").hide();
   			callFileUploader();
   		}
   		fnUploadImage = $Fn(uploadImage,this);

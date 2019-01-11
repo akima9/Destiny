@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.UUID;
 
@@ -126,11 +127,52 @@ public class InfoController {
         os.flush();
         os.close();
 		/*서버에 파일쓰기 : end*/
+        
+        sFileInfo += "&bNewLine=true"; //정보 출력
+        sFileInfo += "&sFileName=" + fileName; //img태그의 title속성을 원본파일명으로 적용시켜주기 위함
+        sFileInfo += "&sFileURL=" + "/se2/photo_upload/" + realFileNm;
+        PrintWriter print = response.getWriter();
+        print.print(sFileInfo);
+        print.flush();
+        print.close();
 		
 		ModelAndView modelAndView = new ModelAndView();
 		return modelAndView;
 	}
 	/*다중파일 업로드 : end*/
+	
+	/*단일파일 업로드 : start*/
+	@RequestMapping(value="photoUpload", method=RequestMethod.POST)
+	public ModelAndView photoUpload(HttpServletRequest request, @ModelAttribute("photo") Photo photo) throws Exception{
+		
+		String callBack = photo.getCallBack();
+		String callBackFunc = photo.getCallBackFunc();
+		String fileResult = "";
+		
+		if (photo.getFileData() != null && photo.getFileData().getOriginalFilename() != null && !photo.getFileData().getOriginalFilename().equals("")) {
+			String originalName = photo.getFileData().getOriginalFilename();
+			String ext = originalName.substring(originalName.lastIndexOf(".")+1);
+			String defaultPath = request.getSession().getServletContext().getRealPath("/");
+			String path = defaultPath + "se2" + File.separator + "photo_upload" + File.separator;
+			File file = new File(path);
+			
+			if (!file.exists()) {
+				file.mkdirs();
+			}
+			
+			String realName = UUID.randomUUID().toString() + "." + ext;
+			
+			photo.getFileData().transferTo(new File(path+realName));
+			fileResult += "&bNewLine=true&sFileName=" + originalName + "&sFileURL=/se2/photo_upload/" + realName;
+		} else {
+			fileResult += "&errstr=error";
+		}
+		
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("redirect:"+callBack+"?callBackFunc="+callBackFunc+fileResult);
+		return modelAndView;
+	}
+	/*단일파일 업로드 : end*/
 	
 	
 

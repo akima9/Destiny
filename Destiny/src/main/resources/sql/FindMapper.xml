@@ -31,10 +31,15 @@
 	</resultMap>
 	 
 	 <!-- SQL : SELECT ONE -->
-	 <select 	id="getUserResult"	parameterType="com.destiny.service.domain.Find" resultType="int">
-		SELECT COUNT(*)
-		 FROM users 
-		 WHERE gender = #{selectGender}
+	 <select 	id="getUserResult"	parameterType="com.destiny.service.domain.Find" resultType="int">		
+		SELECT
+		 count(*)
+		FROM users u, age_range ar
+		WHERE substr( NVL(TRUNC(MONTHS_BETWEEN(SYSDATE, TO_DATE(u.birthday, 'YYYY-mm-dd'))/12), 0), 3,4) BETWEEN ar.low_age AND ar.high_age
+			AND u.gender=#{selectGender}
+			AND ar.age_range_no=#{selectAge}
+			AND u.address LIKE '%'||#{town}||'%'
+		GROUP BY ar.age_range_no
 	 </select>
 	 
 	 

@@ -4,12 +4,10 @@ import java.util.List;
 
 public class Find {
 
-	private	User			findUser;
 	private Meeting	findMeeting;
 	private	String		selectGender;
-	private	int			startAge;
-	private int			endAge;
-	private	String		selctAdress;
+	private	String		selectAge;
+	private	String		selectAdress;
 	private	String		selectInterest01;
 	private	String		selectInterest02;
 	private	String		selectInterest03;
@@ -18,16 +16,6 @@ public class Find {
 
 
 	public Find() {
-	}
-
-
-	public User getFindUser() {
-		return findUser;
-	}
-
-
-	public void setFindUser(User findUser) {
-		this.findUser = findUser;
 	}
 
 
@@ -51,33 +39,23 @@ public class Find {
 	}
 
 
-	public int getStartAge() {
-		return startAge;
+	public String getSelectAge() {
+		return selectAge;
 	}
 
 
-	public void setStartAge(int startAge) {
-		this.startAge = startAge;
+	public void setSelectAge(String selectAge) {
+		this.selectAge = selectAge;
 	}
 
 
-	public int getEndAge() {
-		return endAge;
+	public String getSelectAdress() {
+		return selectAdress;
 	}
 
 
-	public void setEndAge(int endAge) {
-		this.endAge = endAge;
-	}
-
-
-	public String getSelctAdress() {
-		return selctAdress;
-	}
-
-
-	public void setSelctAdress(String selctAdress) {
-		this.selctAdress = selctAdress;
+	public void setSelectAdress(String selectAdress) {
+		this.selectAdress = selectAdress;
 	}
 
 
@@ -133,15 +111,12 @@ public class Find {
 
 	@Override
 	public String toString() {
-		return "Find [findUser=" + findUser + ", findMeeting=" + findMeeting + ", selectGender=" + selectGender
-				+ ", startAge=" + startAge + ", endAge=" + endAge + ", selctAdress=" + selctAdress
-				+ ", selectInterest01=" + selectInterest01 + ", selectInterest02=" + selectInterest02
-				+ ", selectInterest03=" + selectInterest03 + ", city=" + city + ", town=" + town + "]";
+		return "Find [findMeeting=" + findMeeting + ", selectGender=" + selectGender + ", selectAge=" + selectAge
+				+ ", selectAdress=" + selectAdress + ", selectInterest01=" + selectInterest01 + ", selectInterest02="
+				+ selectInterest02 + ", selectInterest03=" + selectInterest03 + ", city=" + city + ", town=" + town
+				+ "]";
 	}
-
-
 	
 	
-
 	
 }

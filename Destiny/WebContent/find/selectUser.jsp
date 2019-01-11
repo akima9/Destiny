@@ -59,8 +59,8 @@
 			 <div class="row">
 		  		<div class="col-xs-4 col-md-2 "><strong>楷飞</strong></div>
 				<div class="col-xs-8 col-md-4">
-					<select name="ageRange">
-						<option value="1">$20技 ~ 24技</option>
+					<select name="selectAge">
+						<option value="1">20技 ~ 24技</option>
 						<option value="2">24技 ~ 29技</option>
 						<option value="3">30技 ~ 34技</option>
 						<option value="4">34技 ~ 49技</option>
@@ -73,22 +73,22 @@
 			
 			<hr/>
 			
-			<!-- <div class="row">
+			<div class="row">
 		  		<div class="col-xs-4 col-md-2 "><strong>瘤开</strong></div>
 				<div class="col-xs-8 col-md-4">
-					<select name="location_city">
-						<option value="">辑匡矫</option>
-						<option value="">力林矫</option>
+					<select name="city">
+						<option value="辑匡">辑匡</option>
+						<option value="力林">力林</option>
 					</select>
 					
-					<select name="location_town">
-						<option value="">辑檬备</option>
-						<option value="">包厩备</option>
+					<select name="town">
+						<option value="碍巢">碍巢</option>
+						<option value="包厩">包厩</option>
 					</select>
 				</div>
 			</div>
 			
-			<hr/> -->
+			<hr/>
 
 			
 			<div class="row">

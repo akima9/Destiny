@@ -39,5 +39,16 @@
 		WHERE user_id = #{value}
 	 </select>
 	 
+	 <update id="attendLogin" parameterType="com.destiny.service.domain.User">
+	 	UPDATE users
+	 	<set>
+	 		last_login_day = #{lastLoginDay},
+	 		attend_count = #{attendCount}
+	 	</set>
+	 	WHERE user_id = #{userId}
+	 </update>
+	 
+	 
+	 
 	 
 </mapper>

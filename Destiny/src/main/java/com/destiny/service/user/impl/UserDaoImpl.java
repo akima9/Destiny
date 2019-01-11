@@ -26,4 +26,11 @@ public class UserDaoImpl implements UserDao{
 	public User getUser(String userId) throws Exception {
 		return sqlSession.selectOne("UserMapper.getUser", userId);
 	}
+
+	@Override
+	public void attendLogin(User user) throws Exception {
+		sqlSession.update("UserMapper.attendLogin", user);
+	}
+	
+	
 }

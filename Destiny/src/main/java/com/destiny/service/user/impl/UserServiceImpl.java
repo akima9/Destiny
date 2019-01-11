@@ -27,4 +27,9 @@ public class UserServiceImpl implements UserService {
 	public User getUser(String userId) throws Exception {
 		return userDao.getUser(userId);
 	}
+
+	@Override
+	public void attendLogin(User user) throws Exception {
+		userDao.attendLogin(user);
+	}
 }

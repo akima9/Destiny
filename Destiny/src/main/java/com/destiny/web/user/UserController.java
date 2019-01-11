@@ -1,11 +1,13 @@
 package com.destiny.web.user;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +54,7 @@ public class UserController {
 	}
 	
 	@RequestMapping( value="login", method=RequestMethod.POST )
-	public ModelAndView login(@ModelAttribute("user") User user , HttpSession session) throws Exception{
+	public ModelAndView login(@ModelAttribute("user") User user , HttpSession session, HttpServletRequest request) throws Exception{
 		
 		System.out.println("/user/login : POST");
 		System.out.println("userId : " + user.getUserId());
@@ -61,39 +63,66 @@ public class UserController {
 		//Business Logic
 		User dbUser=userService.getUser(user.getUserId());
 		
-		Map loginMap = new HashMap();
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("redirect:/index.jsp");
+		
+		//===========================================로그인 + 현제 접속자 구현 로직 part=================================================
+		ServletContext applicationScope = request.getSession().getServletContext();
+		
 		List<User> loginList = new ArrayList<User>();
+		
+		if(applicationScope.getAttribute("loginList") != null) {
+			loginList = (List<User>) applicationScope.getAttribute("loginList");
+		}
 		
 		int numberOfLogin = 0;
 		
-		if(session.getAttribute("numberOfLogin") != null && (int)session.getAttribute("numberOfLogin") != 0) {
-			numberOfLogin = (int) session.getAttribute("numberOfLogin");
+		if(applicationScope.getAttribute("numberOfLogin") != null) {
+			numberOfLogin = (int) applicationScope.getAttribute("numberOfLogin");
 		}
 
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("redirect:/index.jsp");
 		if( user.getPassword().equals(dbUser.getPassword())){
+			
+			loginList.add(dbUser);
+			
+			numberOfLogin++;
+			
+			applicationScope.setAttribute("loginList", loginList);
+			applicationScope.setAttribute("numberOfLogin", numberOfLogin);
+			for(User v : loginList) {
+				System.out.println("현제 접속자 목록 : " + v);
+			}
+			System.out.println("현제 접속자 : " + numberOfLogin);
 			
 			modelAndView.addObject("result", "Success");
 			modelAndView.addObject(dbUser.getUserId(), dbUser);
 			
-			loginList.add(dbUser);
-			
-			for(User v : loginList) {
-				numberOfLogin++;
-			}
-			
-			loginMap.put("loginList", loginList);
-			loginMap.put("numberOfLogin", numberOfLogin);
-			
-			session.setAttribute(dbUser.getUserId(), dbUser);
-			
-			System.out.println("현제 접속자 : " + numberOfLogin);
 		} else {
 			modelAndView.addObject("result", "Fail");
 		}
+		//====================================================================================================
 		
+		//=========================================출석체크 로직 구현 part===========================================
+		int numAttendCount = dbUser.getAttendCount();
+		Date lastLoginDate = dbUser.getLastLoginDay();
+		System.out.println(dbUser.getUserId() + "의 마지막 로그인 날자 : " + lastLoginDate);
 		
+		java.sql.Date sqlDate = new java.sql.Date(new java.util.Date().getTime());
+
+		System.out.println("현제 날짜(sql) : " + sqlDate);
+		
+		if(sqlDate.getTime() > lastLoginDate.getTime() ) {
+			System.out.println("다른날 접속입니다. 마지막 접속 : " + lastLoginDate.getTime() + " 오늘 접속 : " + sqlDate.getTime());
+			
+			dbUser.setLastLoginDay(sqlDate);
+			numAttendCount++;
+			dbUser.setAttendCount(numAttendCount);
+			
+			userService.attendLogin(dbUser);
+		} else {
+			System.out.println("같은날 접속입니다. 마지막 접속 : " + lastLoginDate.getTime() + " 오늘 접속 : " + sqlDate.getTime());
+		}
+		//=======================================================================================================
 		
 		return modelAndView;
 	}

@@ -10,6 +10,8 @@ import com.destiny.service.domain.User;
 public interface UserDao {
 	
 	// SELECT ONE
-	public User getUser(String userId) throws Exception ;
+	public User getUser(String userId) throws Exception;
+	
+	public void attendLogin(User user) throws Exception;
 	
 }

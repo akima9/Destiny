@@ -11,5 +11,7 @@ public interface UserService {
 	
 	// 내정보확인 / 로그인
 	public User getUser(String userId) throws Exception;
+	
+	public void attendLogin(User user) throws Exception;
 		
 }

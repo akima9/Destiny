@@ -8,9 +8,7 @@ public class Find {
 	private	String		selectGender;
 	private	String		selectAge;
 	private	String		selectAdress;
-	private	String		selectInterest01;
-	private	String		selectInterest02;
-	private	String		selectInterest03;
+	private	String		selectInterest;
 	private	String		city;
 	private	String		town;
 
@@ -59,33 +57,13 @@ public class Find {
 	}
 
 
-	public String getSelectInterest01() {
-		return selectInterest01;
+	public String getSelectInterest() {
+		return selectInterest;
 	}
 
 
-	public void setSelectInterest01(String selectInterest01) {
-		this.selectInterest01 = selectInterest01;
-	}
-
-
-	public String getSelectInterest02() {
-		return selectInterest02;
-	}
-
-
-	public void setSelectInterest02(String selectInterest02) {
-		this.selectInterest02 = selectInterest02;
-	}
-
-
-	public String getSelectInterest03() {
-		return selectInterest03;
-	}
-
-
-	public void setSelectInterest03(String selectInterest03) {
-		this.selectInterest03 = selectInterest03;
+	public void setSelectInterest(String selectInterest) {
+		this.selectInterest = selectInterest;
 	}
 
 
@@ -112,11 +90,10 @@ public class Find {
 	@Override
 	public String toString() {
 		return "Find [findMeeting=" + findMeeting + ", selectGender=" + selectGender + ", selectAge=" + selectAge
-				+ ", selectAdress=" + selectAdress + ", selectInterest01=" + selectInterest01 + ", selectInterest02="
-				+ selectInterest02 + ", selectInterest03=" + selectInterest03 + ", city=" + city + ", town=" + town
-				+ "]";
+				+ ", selectAdress=" + selectAdress + ", selectInterest=" + selectInterest + ", city=" + city + ", town="
+				+ town + "]";
 	}
-	
+
 	
 	
 }

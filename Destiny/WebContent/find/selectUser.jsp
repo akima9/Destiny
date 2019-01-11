@@ -13,6 +13,40 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
 		
 		<script type="text/javascript">
+		
+		$(function() {
+			$( "#city" ).on("change" , function() {
+				var idx = $("#city").index(this);
+				var city = $(this).val();
+				
+				alert(city + idx);
+				
+				$.ajax( 
+						{
+							url : "/user/json/getLocationList/"+city ,
+							method : "GET" ,
+							dataType : "json" ,
+							headers : {
+								"Accept" : "application/json",
+								"Content-Type" : "application/json"
+							},
+							success : function(JSONData , status) {
+								alert("성공?");
+								var list="";
+								for(i in JSONData.list){
+									var town = JSONData.list[i].townName;
+									list+="<option value='"+town+"'>"+town+"</option>";
+							}
+								$( "#town:eq("+idx+")" ).empty().append(list);
+							},
+							error : function(what){
+								alert("town ERROR" + what);
+							}
+						});
+				});
+			
+			});
+		
 			$(function() {
 				
 				$("button:contains('찾기')").on("click", function() {
@@ -76,20 +110,70 @@
 			<div class="row">
 		  		<div class="col-xs-4 col-md-2 "><strong>지역</strong></div>
 				<div class="col-xs-8 col-md-4">
-					<select name="city">
-						<option value="서울">서울</option>
-						<option value="제주">제주</option>
-					</select>
-					
-					<select name="town">
-						<option value="강남">강남</option>
-						<option value="관악">관악</option>
-					</select>
+					<select class="form-control" id="city">
+						<option value="">도/시를 선택해 주세요</option>
+				      	<option value="서울">서울</option>
+				      	<option value="경기">경기</option>
+				      	<option value="인천">인천</option>
+				      	<option value="부산">부산</option>
+				      	<option value="대구">대구</option>
+				      	<option value="광주">광주</option>
+				      	<option value="대전">대전</option>
+				      	<option value="울산">울산</option>
+				      	<option value="세종">세종</option>
+				      	<option value="강원">강원</option>
+				      	<option value="경남">경남</option>
+				      	<option value="경북">경북</option>
+				      	<option value="전남">전남</option>
+				      	<option value="전북">전북</option>
+				      	<option value="충남">충남</option>
+				      	<option value="충북">충북</option>
+				      	<option value="제주">제주</option>
+				      </select>
+				      
+					<select class="form-control" id="town" name="town">
+		      	<c:forEach var="location" items="${list}">
+					<option value="${location.townName}">${location.townName}</option>
+				</c:forEach>
+		      </select>
 				</div>
 			</div>
 			
 			<hr/>
+			
+			<div class="row">
+		  		<div class="col-xs-4 col-md-2"><strong>관심사</strong></div>
+				<div class="col-xs-8 col-md-4">
+					<input type="checkbox" name="selectInterest" value="10000">아웃도어/여행
+					<input type="checkbox" name="selectInterest" value="10002">운동/스포츠
+					<input type="checkbox" name="selectInterest" value="10003">인문학/책/글
+					<br/><br/>
+					<input type="checkbox" name="selectInterest" value="10004">업종/직무
+					<input type="checkbox" name="selectInterest" value="10005">외국/언어
+					<input type="checkbox" name="selectInterest" value="10006">문화/공연/축제
+					<br/><br/>
+					<input type="checkbox" name="selectInterest" value="10007">음악/악기
+					<input type="checkbox" name="selectInterest" value="10008">공예/만들기
+					<input type="checkbox" name="selectInterest" value="10009">댄스/무용
+					<br/><br/>
+					<input type="checkbox" name="selectInterest" value="1010">봉사활동
+					<input type="checkbox" name="selectInterest" value="1011">사교/인맥
+					<input type="checkbox" name="selectInterest" value="1012">차/오토바이
+					<br/><br/>
+					<input type="checkbox" name="selectInterest" value="1013">사진/영상
+					<input type="checkbox" name="selectInterest" value="1014">야구관람
+					<input type="checkbox" name="selectInterest" value="1015">게임/오락
+					
+					<input type="checkbox" name="selectInterest" value="1016">요리/제조
+					<input type="checkbox" name="selectInterest" value="1017">반려동물
+					<input type="checkbox" name="selectInterest" value="1018">가족/결혼
+					<br/><br/>
+					<input type="checkbox" name="selectInterest" value="1019">함께해요
+					<br/><br/>
+				</div>
+			</div>
 
+			<hr/>
 			
 			<div class="row">
 				<div class="col-md-12 text-center ">

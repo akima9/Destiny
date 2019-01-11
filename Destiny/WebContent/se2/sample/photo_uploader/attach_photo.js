@@ -335,10 +335,9 @@
     		sUploadURL;
     	
     	/*수정된 부분 : start*/
-    	/*sUploadURL= '/info/photoUpload'; 	//단일파일업로드 URL*/
-    	/*sUploadURL= '/info/multiplePhotoUpload'; 	//다중파일업로드 URL*/
-    	sUploadURL= 'file_uploader_html5.php'; 	//upload URL
+    	sUploadURL= './fileUploaderHtml5.jsp'; 	//upload URL
     	/*수정된 부분 : end*/
+    	/*sUploadURL= 'file_uploader_html5.php'; 	//upload URL*/
     	
     	//파일을 하나씩 보내고, 결과를 받음.
     	for(var j=0, k=0; j < nImageInfoCnt; j++) {
@@ -483,12 +482,12 @@
  	function callFileUploader (){
  		oFileUploader = new jindo.FileUploader(jindo.$("uploadInputBox"),{
  			/*추가된 부분 : start*/
- 			sUrl  : '/info/photoUpload',
+ 			sUrl  : './fileUpLoader.jsp',
  			sCallback : './callback.html',
  			/*추가된 부분 : end*/
  			
- 			/*sUrl  : location.href.replace(/\/[^\/]*$/, '') + '/file_uploader.php',	//샘플 URL입니다.*/
- 			/*sCallback : location.href.replace(/\/[^\/]*$/, '') + '/callback.html',	//업로드 이후에 iframe이 redirect될 콜백페이지의 주소*/
+ 			/*sUrl  : location.href.replace(/\/[^\/]*$/, '') + '/file_uploader.php',	//샘플 URL입니다.
+ 			sCallback : location.href.replace(/\/[^\/]*$/, '') + '/callback.html',	//업로드 이후에 iframe이 redirect될 콜백페이지의 주소*/
  			
  			sFiletype : "*.jpg;*.png;*.bmp;*.gif",						//허용할 파일의 형식. ex) "*", "*.*", "*.jpg", 구분자(;)	
  	    	sMsgNotAllowedExt : 'JPG, GIF, PNG, BMP 확장자만 가능합니다',	//허용할 파일의 형식이 아닌경우에 띄워주는 경고창의 문구
@@ -554,16 +553,16 @@
   		checkDragAndDropAPI();
   		
   		if(bSupportDragAndDropAPI){
-  			$Element("pop_container2").show();;
-  			$Element("pop_container").hide();
+  			$Element("pop_container2").hide();
+  			$Element("pop_container").show();
   			
   			welTextGuide.removeClass("nobg");
   			welTextGuide.className("bg");
   			
   			addEvent();
   		} else {
-  			$Element("pop_container").show();
-  			$Element("pop_container2").hide();
+  			$Element("pop_container").hide();
+  			$Element("pop_container2").show();
   			callFileUploader();
   		}
   		fnUploadImage = $Fn(uploadImage,this);

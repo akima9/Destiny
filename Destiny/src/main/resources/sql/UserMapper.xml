@@ -45,6 +45,28 @@
 		WHERE user_id = #{value}
 	 </select>
 	 
+	 <!-- SQL : SELECT ONE -->
+	 <select 	id="getUserByNickName"	parameterType="string"	resultMap="userSelectMap">
+		SELECT
+		user_id, nick_name, user_grade, password, email, birthday, address, profile_img, gender, phone, attend_count, last_login_day, warning_count, my_type, first_type, second_type, thrid_type, first_interest, second_interest, third_interest	
+		FROM users 
+		WHERE nick_name = #{value}
+	 </select>
+	 
+	 <select 	id="getUserByEmail"	parameterType="string"	resultMap="userSelectMap">
+		SELECT
+		user_id, nick_name, user_grade, password, email, birthday, address, profile_img, gender, phone, attend_count, last_login_day, warning_count, my_type, first_type, second_type, thrid_type, first_interest, second_interest, third_interest	
+		FROM users 
+		WHERE email = #{value}
+	 </select>
+	 
+	 <select 	id="getUserByPhone"	parameterType="string"	resultMap="userSelectMap">
+		SELECT
+		user_id, nick_name, user_grade, password, email, birthday, address, profile_img, gender, phone, attend_count, last_login_day, warning_count, my_type, first_type, second_type, thrid_type, first_interest, second_interest, third_interest	
+		FROM users 
+		WHERE phone = #{value}
+	 </select>
+	 
 	 <update id="attendLogin" parameterType="com.destiny.service.domain.User">
 	 	UPDATE users
 	 	<set>

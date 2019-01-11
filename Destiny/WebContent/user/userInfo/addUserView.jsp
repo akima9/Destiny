@@ -83,6 +83,10 @@
 			var pw=$("input[name='password']").val();
 			var pw_confirm=$("input[name='password2']").val();
 			var name=$("input[name='userName']").val();
+			var address1=$("input[name='address1']").val();
+			var address2=$("input[name='address2']").val();
+			
+			var address = address1 + " " + address2;
 			
 			if($("#authnumPhoneWirte").text() != "" && $("#authnumPhoneWirte ").text() != null){
 				alert("휴대폰 인증이 제대로 수행되지 않았습니다. 인증번호를 확인해 주세요.");
@@ -110,6 +114,10 @@
 				alert("이름은  반드시 입력하셔야 합니다.");
 				return;
 			}
+			if(address == null || address.length <1){
+				alert("거주지는  반드시 입력하셔야 합니다.");
+				return;
+			}
 			
 			if( pw != pw_confirm ) {				
 				alert("비밀번호 확인이 일치하지 않습니다.");
@@ -125,12 +133,8 @@
 			}
 
 			
-			
-				
-			
-			
 			$("input:hidden[name='phone']").val( value );
-			
+			$("input:hidden[name='address']").val( address );
 			
 			
 			$("form").attr("method" , "POST").attr("action" , "/user/addUser").submit();
@@ -313,10 +317,123 @@
 									alert("ㅇㅇ?" + what);
 								}
 						});
-					
 				});
-				
 			});
+		 
+		 $(function() {
+			 $('input[name="userId"]').on("keyup", function(){
+				 
+				 var userId = $('input[name="userId"]').val();
+				 
+				 $.ajax({
+					 url : "/user/json/getUser/"+userId,
+					 method : "GET",
+					 datatype : "json",
+					 headers : {
+						"Accept" : "application/json",
+						"Content-Type" : "application/json"
+					 },
+					 success : function(JSONData, status){
+						 //alert(JSONData.user);
+						 if(JSONData.user != null){
+							$('input[name="userId"]').css('background-color','pink');
+							$('#userIdWirte').text("이미 존재하는 아이디입니다.");
+						 } else {
+							$('input[name="userId"]').css('background-color','white');
+							$('#userIdWirte').text("");
+						 }
+					 }
+				 });
+			 });
+		 });
+		 
+		 $(function() {
+			 $('input[name="nickName"]').on("keyup", function(){
+				 
+				 var nickName = $('input[name="nickName"]').val();
+				 
+				 $.ajax({
+					 url : "/user/json/getUserByNickName/"+nickName,
+					 method : "GET",
+					 datatype : "json",
+					 headers : {
+						"Accept" : "application/json",
+						"Content-Type" : "application/json"
+					 },
+					 success : function(JSONData, status){
+						 //alert(JSONData.user);
+						 if(JSONData.user != null){
+							$('input[name="nickName"]').css('background-color','pink');
+							$('#nickNameWirte').text("이미 존재하는 닉네임입니다.");
+						 } else {
+							$('input[name="nickName"]').css('background-color','white');
+							$('#nickNameWirte').text("");
+						 }
+					 }
+				 });
+			 });
+		 });
+		 
+
+		 $(function() {
+			 $('input[name="email"]').on("keyup", function(){
+				 
+				 var email = $('input[name="email"]').val();
+				 
+				 $.ajax({
+					 url : "/user/json/getUserByEmail/"+email,
+					 method : "GET",
+					 datatype : "json",
+					 headers : {
+						"Accept" : "application/json",
+						"Content-Type" : "application/json"
+					 },
+					 success : function(JSONData, status){
+						 //alert(JSONData.user);
+						 if(JSONData.user != null){
+							$('input[name="email"]').css('background-color','pink');
+							$('#authnumWirte').text("이미 존재하는 이메일입니다.");
+						 } else {
+							$('input[name="email"]').css('background-color','white');
+							$('#authnumWirte').text("");
+						 }
+					 }
+				 });
+			 });
+		 });
+		 
+		 $(function() {
+			 $('input[name="phone3"]').on("keyup", function(){
+				 
+				 var phone = "";	
+					if( $("input:text[name='phone2']").val() != ""  &&  $("input:text[name='phone3']").val() != "") {
+						var phone = $("select[name='phone1']").val() + "-"
+											+ $("input[name='phone2']").val() + "-"
+											+ $("input[name='phone3']").val();
+					}
+					alert("입력된 번호 : "+phone);
+				 
+				 $.ajax({
+					 url : "/user/json/getUserByPhone/"+phone,
+					 method : "GET",
+					 datatype : "json",
+					 headers : {
+						"Accept" : "application/json",
+						"Content-Type" : "application/json"
+					 },
+					 success : function(JSONData, status){
+						 //alert(JSONData.user);
+						 if(JSONData.user != null){
+							$('input[name="phone3"]').css('background-color','pink');
+							$('#authnumPhoneWirte').text("이미 존재하는 번호입니다.");
+						 } else {
+							$('input[name="phone3"]').css('background-color','white');
+							$('#authnumPhoneWirte').text("");
+						 }
+					 }
+				 });
+			 });
+		 });
 		 
 
 	</script>		
@@ -344,7 +461,8 @@
 		  <div class="form-group">
 		    <label for="userId" class="col-sm-offset-1 col-sm-3 control-label">아 이 디</label>
 		    <div class="col-sm-4">
-		      <input type="text" class="form-control" id="userId" name="userId" placeholder="아이디"  readonly>
+		      <input type="text" class="form-control" id="userId" name="userId" placeholder="아이디">
+		      <span id="userIdWirte"></span>
 		    </div>
 		  </div>
 		  		  
@@ -368,6 +486,7 @@
 		    <label for="nickName" class="col-sm-offset-1 col-sm-3 control-label">닉네임</label>
 		    <div class="col-sm-4">
 		      <input type="text" class="form-control" id="nickName" name="nickName" placeholder="닉네임">
+		      <span id="nickNameWirte"></span>
 		    </div>
 		  </div>
 		  
@@ -400,6 +519,7 @@
 					<option value="${location.townName}">${location.townName}</option>
 				</c:forEach>
 		      </select>
+		      <input type="hidden" name="address">
 		    </div>
 		  </div>
 		  

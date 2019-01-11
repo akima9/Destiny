@@ -11,6 +11,12 @@ public interface UserDao {
 	// SELECT ONE
 	public User getUser(String userId) throws Exception;
 	
+	public User getUserByNickName(String nickName) throws Exception;
+	
+	public User getUserByEmail(String email) throws Exception;
+	
+	public User getUserByPhone(String phone) throws Exception;
+	
 	public void attendLogin(User user) throws Exception;
 	
 	public void addUser(User user) throws Exception;

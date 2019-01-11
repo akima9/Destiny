@@ -32,6 +32,21 @@ public class UserServiceImpl implements UserService {
 	public User getUser(String userId) throws Exception {
 		return userDao.getUser(userId);
 	}
+	
+	@Override
+	public User getUserByNickName(String nickName) throws Exception {
+		return userDao.getUserByNickName(nickName);
+	}
+	
+	@Override
+	public User getUserByEmail(String email) throws Exception {
+		return userDao.getUserByEmail(email);
+	}
+
+	@Override
+	public User getUserByPhone(String phone) throws Exception {
+		return userDao.getUserByPhone(phone);
+	}
 
 	@Override
 	public void attendLogin(User user) throws Exception {

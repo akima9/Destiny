@@ -104,7 +104,7 @@ main Chatting
 			        <h3>랜덤채팅</h3>
 			        <p class='text-primary'>이성과 랜덤채팅 기능을 제공합니다.</p>
 			        <p  >
-			        	<a href='#' class="btn btn-primary" role="button">참여</a> 
+			        	<a href='getTelepathyTest.jsp' class="btn btn-primary" role="button">참여</a> 
 			        </p>
 			      </div>
 			    </div>
@@ -118,7 +118,7 @@ main Chatting
 			        <h3>이상형채팅</h3>
 			        <p class='text-primary'>성격유형검사 결과와 이상형유형을 통해 이성과 랜덤채팅 기능을 제공합니다.</p>
 			        <p  >
-			        	<a href='#' class="btn btn-primary" role="button">참여</a> 
+			        	<a href='getPerfectChatting.jsp' class="btn btn-primary" role="button">참여</a> 
 			        </p>
 			      </div>
 			    </div>

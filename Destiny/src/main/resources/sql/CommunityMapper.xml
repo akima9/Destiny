@@ -24,10 +24,10 @@
 	</resultMap>
 	
 	<!-- SQL : INSERT -->
-	<insert id="addCommunity" parameterType="product" >
+	<insert id="addCommunity" parameterType="com.destiny.service.domain.Community" >
 	 	INSERT
-		INTO product( prod_no, prod_name, prod_detail, manufacture_day, price, image_file, reg_date ) 
-		VALUES( seq_product_prod_no.nextval, #{prodName}, #{prodDetail}, #{manuDate}, #{price}, #{fileName}, SYSDATE )
+		INTO community( community_no, community_writer_id, category, community_user_grade, community_title, community_writer_nick_name, community_detail, community_write_date,  community_views, community_like, import_rank, community_view_condition) 
+		VALUES( seq_community_no.nextval, #{writerId}, #{category}, #{userGrade}, #{title}, #{writerNickName}, #{detail}, SYSDATE, #{views}, #{like}, #{importRank}, #{viewCondition})
 	</insert>
 	 
 	 <!-- SQL : SELECT ONE -->

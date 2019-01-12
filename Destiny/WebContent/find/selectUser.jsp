@@ -145,30 +145,30 @@
 		  		<div class="col-xs-4 col-md-2"><strong>관심사</strong></div>
 				<div class="col-xs-8 col-md-4">
 					<input type="checkbox" name="selectInterest" value="10000">아웃도어/여행
-					<input type="checkbox" name="selectInterest" value="10002">운동/스포츠
-					<input type="checkbox" name="selectInterest" value="10003">인문학/책/글
+					<input type="checkbox" name="selectInterest" value="10001">운동/스포츠
+					<input type="checkbox" name="selectInterest" value="10002">인문학/책/글
 					<br/><br/>
-					<input type="checkbox" name="selectInterest" value="10004">업종/직무
-					<input type="checkbox" name="selectInterest" value="10005">외국/언어
-					<input type="checkbox" name="selectInterest" value="10006">문화/공연/축제
+					<input type="checkbox" name="selectInterest" value="10003">업종/직무
+					<input type="checkbox" name="selectInterest" value="10004">외국/언어
+					<input type="checkbox" name="selectInterest" value="10005">문화/공연/축제
 					<br/><br/>
-					<input type="checkbox" name="selectInterest" value="10007">음악/악기
-					<input type="checkbox" name="selectInterest" value="10008">공예/만들기
-					<input type="checkbox" name="selectInterest" value="10009">댄스/무용
+					<input type="checkbox" name="selectInterest" value="10006">음악/악기
+					<input type="checkbox" name="selectInterest" value="10007">공예/만들기
+					<input type="checkbox" name="selectInterest" value="10008">댄스/무용
 					<br/><br/>
-					<input type="checkbox" name="selectInterest" value="1010">봉사활동
-					<input type="checkbox" name="selectInterest" value="1011">사교/인맥
-					<input type="checkbox" name="selectInterest" value="1012">차/오토바이
+					<input type="checkbox" name="selectInterest" value="10009">봉사활동
+					<input type="checkbox" name="selectInterest" value="10010">사교/인맥
+					<input type="checkbox" name="selectInterest" value="10011">차/오토바이
 					<br/><br/>
-					<input type="checkbox" name="selectInterest" value="1013">사진/영상
-					<input type="checkbox" name="selectInterest" value="1014">야구관람
-					<input type="checkbox" name="selectInterest" value="1015">게임/오락
-					
-					<input type="checkbox" name="selectInterest" value="1016">요리/제조
-					<input type="checkbox" name="selectInterest" value="1017">반려동물
-					<input type="checkbox" name="selectInterest" value="1018">가족/결혼
+					<input type="checkbox" name="selectInterest" value="10012">사진/영상
+					<input type="checkbox" name="selectInterest" value="10013">야구관람
+					<input type="checkbox" name="selectInterest" value="10014">게임/오락
 					<br/><br/>
-					<input type="checkbox" name="selectInterest" value="1019">함께해요
+					<input type="checkbox" name="selectInterest" value="10015">요리/제조
+					<input type="checkbox" name="selectInterest" value="10016">반려동물
+					<input type="checkbox" name="selectInterest" value="10017">가족/결혼
+					<br/><br/>
+					<input type="checkbox" name="selectInterest" value="10018">함께해요
 					<br/><br/>
 				</div>
 			</div>

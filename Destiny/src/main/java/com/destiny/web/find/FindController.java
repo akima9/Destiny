@@ -1,5 +1,7 @@
 package com.destiny.web.find;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -53,29 +55,44 @@ public class FindController {
 			System.out.println("/find/getUserResult : POST");
 			System.out.println("FIND : "+ find +"======================");
 			
+			System.out.println("?!?! : " + find.getSelectInterest());
+			
+			find.setSelectInterest01(find.getSelectInterest().split(",")[0]);
+			find.setSelectInterest02(find.getSelectInterest().split(",")[1]);
+			find.setSelectInterest03(find.getSelectInterest().split(",")[2]);
+			
+			System.out.println("first : " +find.getSelectInterest01());
+			System.out.println("second : " + find.getSelectInterest02());
+			System.out.println("third : " + find.getSelectInterest03());
+			
 			int totalCount = findService.getUserResult(find);
 			
-			System.out.println("FindMapper.getUserResult °¬´Ù¿È : " + totalCount);
+			System.out.println("FindMapper.getUserResult °¬´Ù¿È / totalCount: " + totalCount);
 			
 			ModelAndView modelAndView = new ModelAndView();
 			modelAndView.addObject("totalCount",totalCount);
 			modelAndView.setViewName("forward:/find/getUserResult.jsp");
-			System.out.println("°¬´Ù¿Â °á°ú find : " + find);
 			return modelAndView;
 		}
 		
-		/*@RequestMapping(value="selectMeeting", method=RequestMethod.GET)
+		@RequestMapping(value="selectMeeting", method=RequestMethod.GET)
 		public ModelAndView selectMeeting() throws Exception{
 			ModelAndView modelAndView = new ModelAndView();
 			modelAndView.setViewName("redirect:/find/selectMeeting.jsp");
 			return modelAndView;
 		}
 				
-		@RequestMapping(value="getMeetingResult", method=RequestMethod.GET)
-		public ModelAndView getMeetingResult() throws Exception{
+		@RequestMapping(value="getMeetingResult", method=RequestMethod.POST)
+		public ModelAndView getMeetingResult(@ModelAttribute("find") Find find) throws Exception{
+			System.out.println("/find/getMeetingResult : POST");
+			System.out.println("FIND : "+ find +"======================");
+			
+			Map<String, Object> map = findService.getMeetingResult(find);
+			
 			ModelAndView modelAndView = new ModelAndView();
-			modelAndView.setViewName("redirect:/find/getMeetingResult.jsp");
+			//modelAndView.addObject("list",map.get("list")); 
+			modelAndView.setViewName("forward:/find/getMeetingResult.jsp");
 			return modelAndView;
-		}*/
+		}
 
 }

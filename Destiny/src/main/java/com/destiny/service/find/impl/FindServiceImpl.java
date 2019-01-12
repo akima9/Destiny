@@ -1,5 +1,7 @@
 package com.destiny.service.find.impl;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.destiny.service.community.CommunityDao;
 import com.destiny.service.domain.Find;
+import com.destiny.service.domain.Meeting;
 import com.destiny.service.find.FindDao;
 import com.destiny.service.find.FindService;
 
@@ -32,9 +35,13 @@ public class FindServiceImpl implements FindService {
 	}
 
 	@Override
-	public Map<String, Object> getMeetingResult(String locationName) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public Map<String, Object> getMeetingResult(Find find) throws Exception {
+		List<Find> list = findDao.getMeetingResult(find);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list );
+		
+		return map;
 	}
 
 }

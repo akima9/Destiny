@@ -31,12 +31,16 @@
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js" ></script>
 	
+	
 	<!--  ///////////////////////// CSS ////////////////////////// -->
 	<style>
        body > div.container{
         	border: 3px solid #D6CDB7;
             margin-top: 10px;
         }
+        
+        
+		        
     </style>
     
      <!--  ///////////////////////// JavaScript ////////////////////////// -->
@@ -83,12 +87,14 @@
 			var pw=$("input[name='password']").val();
 			var pw_confirm=$("input[name='password2']").val();
 			var name=$("input[name='userName']").val();
-			var address1=$("input[name='address1']").val();
-			var address2=$("input[name='address2']").val();
+			var address1=$("select[name='address1']").val();
+			var address2=$("select[name='address2']").val();
 			
 			var address = address1 + " " + address2;
 			
-			if($("#authnumPhoneWirte").text() != "" && $("#authnumPhoneWirte ").text() != null){
+			alert(address);
+			
+			/*if($("#authnumPhoneWirte").text() != "" && $("#authnumPhoneWirte ").text() != null){
 				alert("휴대폰 인증이 제대로 수행되지 않았습니다. 인증번호를 확인해 주세요.");
 				return;
 			}
@@ -123,11 +129,11 @@
 				alert("비밀번호 확인이 일치하지 않습니다.");
 				$("input:text[name='password2']").focus();
 				return;
-			}
+			}*/
 				
 			var value = "";	
 			if( $("input:text[name='phone2']").val() != ""  &&  $("input:text[name='phone3']").val() != "") {
-				var value = $("option:selected").val() + "-" 
+				var value = $("select[name='phone1']").val() + "-" 
 									+ $("input[name='phone2']").val() + "-" 
 									+ $("input[name='phone3']").val();
 			}
@@ -137,7 +143,7 @@
 			$("input:hidden[name='address']").val( address );
 			
 			
-			$("form").attr("method" , "POST").attr("action" , "/user/addUser").submit();
+			$("form").attr("method" , "POST").attr("enctype","multipart/form-data").attr("action" , "/user/addUser").submit();
 		}
 		
 
@@ -155,52 +161,52 @@
 			 
 		});	
 		
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		   //==> 주민번호 유효성 check 는 이해정도로....
+			function checkSsn() {
+				var ssn1, ssn2; 
+				var nByear, nTyear; 
+				var today; 
 		
-	   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	   //==> 주민번호 유효성 check 는 이해정도로....
-		function checkSsn() {
-			var ssn1, ssn2; 
-			var nByear, nTyear; 
-			var today; 
-	
-			ssn = document.detailForm.ssn.value;
-			// 유효한 주민번호 형식인 경우만 나이 계산 진행, PortalJuminCheck 함수는 CommonScript.js 의 공통 주민번호 체크 함수임 
-			if(!PortalJuminCheck(ssn)) {
-				alert("잘못된 주민번호입니다.");
-				return false;
+				ssn = document.detailForm.ssn.value;
+				// 유효한 주민번호 형식인 경우만 나이 계산 진행, PortalJuminCheck 함수는 CommonScript.js 의 공통 주민번호 체크 함수임 
+				if(!PortalJuminCheck(ssn)) {
+					alert("잘못된 주민번호입니다.");
+					return false;
+				}
 			}
-		}
-	
-		function PortalJuminCheck(fieldValue){
-		    var pattern = /^([0-9]{6})-?([0-9]{7})$/; 
-			var num = fieldValue;
-		    if (!pattern.test(num)) return false; 
-		    num = RegExp.$1 + RegExp.$2;
-	
-			var sum = 0;
-			var last = num.charCodeAt(12) - 0x30;
-			var bases = "234567892345";
-			for (var i=0; i<12; i++) {
-				if (isNaN(num.substring(i,i+1))) return false;
-				sum += (num.charCodeAt(i) - 0x30) * (bases.charCodeAt(i) - 0x30);
+		
+			function PortalJuminCheck(fieldValue){
+			    var pattern = /^([0-9]{6})-?([0-9]{7})$/; 
+				var num = fieldValue;
+			    if (!pattern.test(num)) return false; 
+			    num = RegExp.$1 + RegExp.$2;
+		
+				var sum = 0;
+				var last = num.charCodeAt(12) - 0x30;
+				var bases = "234567892345";
+				for (var i=0; i<12; i++) {
+					if (isNaN(num.substring(i,i+1))) return false;
+					sum += (num.charCodeAt(i) - 0x30) * (bases.charCodeAt(i) - 0x30);
+				}
+				var mod = sum % 11;
+				return ((11 - mod) % 10 == last) ? true : false;
 			}
-			var mod = sum % 11;
-			return ((11 - mod) % 10 == last) ? true : false;
-		}
-		 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
-		 
-		//==>"ID중복확인" Event 처리 및 연결
-		 $(function() {
-			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			 $("#checkVal").on("click" , function() {
-				popWin 
-				= window.open("/user/checkDuplication.jsp",
-											"popWin", 
-											"left=300,top=200,width=780,height=130,marginwidth=0,marginheight=0,"+
-											"scrollbars=no,scrolling=no,menubar=no,resizable=no");
-			});
-		});	
+			 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		
+			 
+			//==>"ID중복확인" Event 처리 및 연결
+			 $(function() {
+				//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+				 $("#checkVal").on("click" , function() {
+					popWin 
+					= window.open("/user/checkDuplication.jsp",
+												"popWin", 
+												"left=300,top=200,width=780,height=130,marginwidth=0,marginheight=0,"+
+												"scrollbars=no,scrolling=no,menubar=no,resizable=no");
+				});
+			});	
+	  
 		
 		 $(function() {
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
@@ -248,11 +254,11 @@
 				 
 				var value = "";	
 				if( $("input:text[name='phone2']").val() != ""  &&  $("input:text[name='phone3']").val() != "") {
-					var value = $("option:selected").val()  
+					var value = $("select[name='phone1']").val()  
 										+ $("input[name='phone2']").val() 
 										+ $("input[name='phone3']").val();
 				}
-				alert("입력된 번호 : "+value);
+				//alert("입력된 번호 : "+value);
 				
 				$.ajax({
 					url : "/user/json/SMSAuth/"+value,
@@ -308,7 +314,7 @@
 									//list+="<option></option>";
 									for(i in JSONData.list){
 										var town = JSONData.list[i].townName;
-										alert(town);
+										//alert(town);
 										list+="<option value='"+town+"'>"+town+"</option>";
 								}
 									$( "#address2:eq("+idx+")" ).empty().append(list);
@@ -435,6 +441,11 @@
 			 });
 		 });
 		 
+		 
+		
+		 
+		
+		
 
 	</script>		
     
@@ -445,7 +456,7 @@
 	<!-- ToolBar Start /////////////////////////////////////-->
 	<div class="navbar  navbar-default">
         <div class="container">
-        	<a class="navbar-brand" href="/index.jsp">Model2 MVC Shop</a>
+        	<a class="navbar-brand" href="/index.jsp">Destiny Add User</a>
    		</div>
    	</div>
    	<!-- ToolBar End /////////////////////////////////////-->
@@ -478,7 +489,7 @@
 		  <div class="form-group">
 		    <label for="password2" class="col-sm-offset-1 col-sm-3 control-label">비밀번호 확인</label>
 		    <div class="col-sm-4">
-		      <input type="password" class="form-control" id="password2" name="password2" placeholder="비밀번호 확인">
+		      <input type="password" class="form-control" id="password2"  placeholder="비밀번호 확인">
 		    </div>
 		  </div>
 		  
@@ -494,7 +505,7 @@
 		    <label for="address" class="col-sm-offset-1 col-sm-3 control-label">주소</label>
 		    <div class="col-sm-4">
 		 	   도/시
-		      <select class="form-control" id="address1">
+		      <select class="form-control" id="address1" name="address1">
 		      	<option value="서울">서울</option>
 		      	<option value="경기">경기</option>
 		      	<option value="인천">인천</option>
@@ -514,7 +525,7 @@
 		      	<option value="제주">제주</option>
 		      </select>
 		     	 구/군
-		      <select class="form-control" id="address2">
+		      <select class="form-control" id="address2" name="address2">
 		      	<c:forEach var="location" items="${list}">
 					<option value="${location.townName}">${location.townName}</option>
 				</c:forEach>
@@ -571,6 +582,19 @@
 		   </div>
 		  </div>
 		  
+		  <div class="form-group">
+		    <label for="birthday" class="col-sm-offset-1 col-sm-3 control-label">생년월일</label>
+		    <div class="col-sm-4">
+			<input type="date" id="birthday" name="birthday">
+		    </div>
+		  </div>
+		  
+		  <div class="form-group">
+		    <label for="profile" class="col-sm-offset-1 col-sm-3 control-label">프로필 이미지</label>
+		    <div class="col-sm-4">
+		      <input type="file" class="form-control" id="file" name="file"  multiple>
+		    </div>
+		  </div>
 		  
 		  
 		  

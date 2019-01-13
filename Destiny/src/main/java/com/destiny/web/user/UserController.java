@@ -1,5 +1,6 @@
 package com.destiny.web.user;
 
+import java.io.File;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -19,6 +20,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.destiny.service.domain.User;
@@ -182,14 +185,73 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="addUser", method=RequestMethod.POST)
-	public ModelAndView addUser(@ModelAttribute("user") User user) throws Exception{
+	public ModelAndView addUser(@ModelAttribute("user") User user, MultipartHttpServletRequest multipartHttpServletRequest) throws Exception{
 		System.out.println("/user/addUser : POST");
 		
+		System.out.println("가져온 user정보 : " + user);
+
+		String temDir = "C:\\Users\\Bit\\git\\Destiny\\Destiny\\WebContent\\resources\\images\\userprofile\\";
+		
+		List<MultipartFile> fileList  = multipartHttpServletRequest.getFiles("file");
+		System.out.println("받은 파일들 : " + fileList);
+		
+		String originalFileName = null;
+		long fileSize = 0;
+		int idx = 0;
+		String initail = "";
+		
+		List list = new ArrayList();
+		
+		File file = new File(temDir);
+		if(file.exists() == false) {
+			file.mkdirs();
+		}
+		
+		//	================DB에 File이름 setting==================
+		for(MultipartFile mf : fileList) {
+			System.out.println("각 파일 : " + mf);
+			originalFileName = mf.getOriginalFilename();
+			System.out.println("파일 이름 : " + originalFileName);
+			
+			idx = originalFileName.indexOf('.');
+			initail = originalFileName.substring(idx, originalFileName.length());
+			originalFileName = originalFileName.substring(0, idx);
+			originalFileName += System.currentTimeMillis();
+			originalFileName += initail;
+			
+			list.add(originalFileName);
+			
+			fileSize = mf.getSize();
+			System.out.println("파일 사이즈 : " + fileSize);
+			
+			String safeFile = temDir + originalFileName;
+			System.out.println("파일 경로 + 이름 : " + safeFile);
+			file = new File(safeFile);
+			mf.transferTo(file);
+		}
+		user.setProfile(String.valueOf(list));
+		//================product DB수행=======================
+		
+		
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("redirect:/user/loginView.jsp");
+		modelAndView.setViewName("redirect:/user/userInfo/loginView.jsp");
+
+		//userService.addUser(user);
 		
-		userService.addUser(user);
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="getUser/{userId}", method=RequestMethod.GET)
+	public ModelAndView getUser(@PathVariable("userId") String userId) throws Exception {
 		
+		User user = userService.getUser(userId);
+		
+		String[] filelist = user.getProfile().split(", ");
+		
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("redirect:/user/userInfo/getUser.jsp");
+		modelAndView.addObject("user", user);
+		modelAndView.addObject("filelist", filelist);
 		return modelAndView;
 	}
 	

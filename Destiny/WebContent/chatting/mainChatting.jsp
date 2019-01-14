@@ -31,13 +31,32 @@
    <!-- 케러셀 완료 -->
 	<!--  ///////////////////////// JavaScript ////////////////////////// -->
 	<script type="text/javascript">
-	
+	function getRandomChatting(){
+		popWin = window.open("getRandomChatting.jsp",
+													"popWin",
+													"left=500, top=600, width=500, height=800, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
+	}
+	function getPerfectChatting(){
+		popWin = window.open("getPerfectChatting.jsp",
+													"popWin",
+													"left=500, top=600, width=500, height=800, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
+	}
+	$(function() {
+		$( "#random" ).on("click" , function() {
+	 		//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+			getRandomChatting();
+		});
+		$( "#perfect" ).on("click" , function() {
+	 		//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+			getPerfectChatting();
+		});
+	});
 	</script>
 <title>mainChatting</title>
 </head>
 
 <body>
-toobar<br>
+toolbar<br>
 main Chatting
 
 <table>
@@ -104,7 +123,8 @@ main Chatting
 			        <h3>랜덤채팅</h3>
 			        <p class='text-primary'>이성과 랜덤채팅 기능을 제공합니다.</p>
 			        <p  >
-			        	<a href='getTelepathyTest.jsp' class="btn btn-primary" role="button">참여</a> 
+			        	<!-- <a href='getTelepathyTest.jsp' class="btn btn-primary" role="button" id="random">참여</a> --> 
+						<a href='#' class="btn btn-primary" role="button" id="random">참여</a>			       
 			        </p>
 			      </div>
 			    </div>
@@ -118,7 +138,8 @@ main Chatting
 			        <h3>이상형채팅</h3>
 			        <p class='text-primary'>성격유형검사 결과와 이상형유형을 통해 이성과 랜덤채팅 기능을 제공합니다.</p>
 			        <p  >
-			        	<a href='getPerfectChatting.jsp' class="btn btn-primary" role="button">참여</a> 
+			        	<!-- <a href='getPerfectChatting.jsp' class="btn btn-primary" role="button" id="perfect">참여</a> --> 
+			        	<a href='#' class="btn btn-primary" role="button" id="perfect">참여</a>
 			        </p>
 			      </div>
 			    </div>

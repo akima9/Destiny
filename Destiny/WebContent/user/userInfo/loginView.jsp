@@ -84,6 +84,14 @@
 			});
 		});	
 		
+		//============= 회원 찾기===================
+		
+		$( function() { 
+			$("#findButton").on("click" , function() {
+				var userId = $("input[name='getUserId']");
+				self.location = "/user/getUser/"+userId;
+			});
+		});
 		
 		//============= 회원원가입화면이동 =============
 		$( function() {
@@ -108,7 +116,15 @@
 			
 	   	 	
 	 	 	<div class="col-md-6">
-	 	 	
+	 	 		
+	 	 		<div class="form-group">
+				    <label for="userId" class="col-sm-4 control-label">회원 검색</label>
+				    <div class="col-sm-6">
+				      <input type="text" class="form-control" name="getUserId" id="getUserId"  placeholder="아이디" >
+				      <button id="findButton" type="button" class="btn btn-primary"  >회원검색</button>
+				    </div>
+				</div>
+	 	 		
 		 	 	<button id="btn-open-dialog">창 열기</button>
 
 				<div id="my-dialog">

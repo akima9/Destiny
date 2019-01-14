@@ -4,28 +4,18 @@ import java.util.List;
 
 public class Find {
 
-	private Meeting	findMeeting;
+	//private Meeting	findMeeting;
 	private	String		selectGender;
 	private	String		selectAge;
-	private	String		selectAdress;
+	private	String		selectInterest;
 	private	String		selectInterest01;
 	private	String		selectInterest02;
 	private	String		selectInterest03;
-	private	String		city;
+	//private	String		city;
 	private	String		town;
 
 
 	public Find() {
-	}
-
-
-	public Meeting getFindMeeting() {
-		return findMeeting;
-	}
-
-
-	public void setFindMeeting(Meeting findMeeting) {
-		this.findMeeting = findMeeting;
 	}
 
 
@@ -49,13 +39,13 @@ public class Find {
 	}
 
 
-	public String getSelectAdress() {
-		return selectAdress;
+	public String getSelectInterest() {
+		return selectInterest;
 	}
 
 
-	public void setSelectAdress(String selectAdress) {
-		this.selectAdress = selectAdress;
+	public void setSelectInterest(String selectInterest) {
+		this.selectInterest = selectInterest;
 	}
 
 
@@ -89,16 +79,6 @@ public class Find {
 	}
 
 
-	public String getCity() {
-		return city;
-	}
-
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-
 	public String getTown() {
 		return town;
 	}
@@ -111,10 +91,9 @@ public class Find {
 
 	@Override
 	public String toString() {
-		return "Find [findMeeting=" + findMeeting + ", selectGender=" + selectGender + ", selectAge=" + selectAge
-				+ ", selectAdress=" + selectAdress + ", selectInterest01=" + selectInterest01 + ", selectInterest02="
-				+ selectInterest02 + ", selectInterest03=" + selectInterest03 + ", city=" + city + ", town=" + town
-				+ "]";
+		return "Find [selectGender=" + selectGender + ", selectAge=" + selectAge + ", selectInterest=" + selectInterest
+				+ ", selectInterest01=" + selectInterest01 + ", selectInterest02=" + selectInterest02
+				+ ", selectInterest03=" + selectInterest03 + ", town=" + town + "]";
 	}
 	
 	

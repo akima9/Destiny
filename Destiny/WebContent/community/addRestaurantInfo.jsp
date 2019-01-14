@@ -9,10 +9,12 @@
 <script type="text/javascript" src="../se2/js/service/HuskyEZCreator.js" charset="utf-8"></script>
 <script type="text/javascript">
 	$(function(){
+		
 		$("#save").on("click",function(){
-			oEditors.getById["ir1"].exec("detail", []);
+			oEditors.getById["detail"].exec("UPDATE_CONTENTS_FIELD", []);
 			$("form").attr("method","POST").attr("action","/info/addRestaurantInfo").submit();
 		});
+		
 	});
 </script>
 </head>
@@ -22,11 +24,11 @@
 		<table width="100%">
 			<tr>
 				<td>제목</td>
-				<td><input type="text"></td>
+				<td><input type="text" name="title"></td>
 			</tr>
 			<tr>
 				<td>내용</td>
-				<td><textarea name="ir1" id="ir1" rows="10" cols="100">에디터에 기본으로 삽입할 글(수정 모드)이 없다면 이 value 값을 지정하지 않으시면 됩니다.</textarea></td>
+				<td><textarea name="detail" id="detail" rows="10" cols="100"></textarea></td>
 			</tr>
 			<tr>
 				<td><input type="button"  id="save" value="확인"></td>
@@ -39,12 +41,12 @@
 	$(function(){
 		nhn.husky.EZCreator.createInIFrame({
 		    oAppRef: oEditors,
-		    elPlaceHolder: "ir1", //textarea에서 지정한 id와 일치해야 한다.
+		    elPlaceHolder: "detail", //textarea에서 지정한 id와 일치해야 한다.
 		    sSkinURI: "../se2/SmartEditor2Skin.html", //SmartEditor2Skin.html 파일이 존재하는 경로
 		    htParams : {
 		    	bUseToolbar : true, //툴바 사용 여부(true : 사용 / false : 사용X)
 		    	bUseVerticalResizer : true, //입력창 크기 조절바 사용 여부( true : 사용 / false : 사용X)
-		    	bUseModeChanger : true, //모드 탭(Editor | HTML | TEXT) 사용 여부 (true : 사용 / false : 사용X)
+		    	bUseModeChanger : false, //모드 탭(Editor | HTML | TEXT) 사용 여부 (true : 사용 / false : 사용X)
 		    	fOnBeforeUnload : function(){
 		    		
 		    	}

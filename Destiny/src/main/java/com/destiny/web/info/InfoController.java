@@ -1,5 +1,16 @@
 package com.destiny.web.info;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -7,8 +18,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.destiny.common.Photo;
 import com.destiny.service.community.CommunityService;
 import com.destiny.service.domain.Community;
 
@@ -53,18 +66,113 @@ public class InfoController {
 	}
 	/*addRestaurantInfo.jsp로 단순 Navigation : end*/
 	
-	/*작업중 : start*/
+	/*addRestaurantInfo : start*/
 	@RequestMapping(value="addRestaurantInfo", method=RequestMethod.POST)
 	public ModelAndView addRestaurantInfo(@ModelAttribute("community") Community community) throws Exception{
-		System.out.println("InfoController/addRestaurantInfo/post : 실행");
+		System.out.println(":: InfoController/addRestaurantInfo/post : 실행");
 		
+		/*Business Logic : start*/
+		community.setWriterId("kimgiyong");
+		community.setCategory("RES");
+		community.setUserGrade("NOR");
+		/*community.setTitle(title);*/
+		community.setWriterNickName("javaKing");
+		/*community.setDetail(detail);*/
+		community.setViews(0);
+		community.setLike(0);
+		community.setImportRank("N");
+		community.setViewCondition("DEF");
 		
+		System.out.println(":: InfoController/addRestaurantInfo/post의 community : "+community);
+		/*Business Logic : end*/
 		
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("redirect:/community/addRestaurantInfo.jsp");
+		communityService.addCommunity(community);
+		modelAndView.setViewName("/community/addRestaurantInfoConfirm.jsp");
 		return modelAndView;
 	}
-	/*작업중 : end*/
+	/*addRestaurantInfo : end*/
+	
+	/*다중파일 업로드 : start*/
+	@RequestMapping(value="multiplePhotoUpload", method=RequestMethod.POST)
+	public ModelAndView multiplePhotoUpload(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		
+		String sFileInfo = ""; //파일정보
+		String fileName = request.getHeader("file-name"); //파일명을 받는다 = 일반 원본 파일명
+		String fileNameExt = fileName.substring(fileName.lastIndexOf(".")+1); //파일 확장자
+		fileNameExt = fileNameExt.toLowerCase(); //확장자를 소문자로 변경
+		String dftFilePath = request.getSession().getServletContext().getRealPath("/"); //파일 기본경로
+		String filePath = dftFilePath + "resource" + File.separator + "photo_upload" + File.separator;
+		File file = new File(filePath);
+		if (!file.exists()) {
+			file.mkdirs();
+		}
+		String realFileNm = "";
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
+		String today = formatter.format(new java.util.Date());
+		realFileNm = today+UUID.randomUUID().toString() + fileName.substring(fileName.lastIndexOf("."));
+		String rlFileNm = filePath + realFileNm;
+		
+		/*서버에 파일쓰기 : start*/
+		InputStream is = request.getInputStream();
+        OutputStream os=new FileOutputStream(rlFileNm);
+        int numRead;
+        byte b[] = new byte[Integer.parseInt(request.getHeader("file-size"))];
+        while((numRead = is.read(b,0,b.length)) != -1){
+           os.write(b,0,numRead);
+        }
+        if(is != null) {
+           is.close();
+        }
+        os.flush();
+        os.close();
+		/*서버에 파일쓰기 : end*/
+        
+        sFileInfo += "&bNewLine=true"; //정보 출력
+        sFileInfo += "&sFileName=" + fileName; //img태그의 title속성을 원본파일명으로 적용시켜주기 위함
+        sFileInfo += "&sFileURL=" + "/se2/photo_upload/" + realFileNm;
+        PrintWriter print = response.getWriter();
+        print.print(sFileInfo);
+        print.flush();
+        print.close();
+		
+		ModelAndView modelAndView = new ModelAndView();
+		return modelAndView;
+	}
+	/*다중파일 업로드 : end*/
+	
+	/*단일파일 업로드 : start*/
+	@RequestMapping(value="photoUpload", method=RequestMethod.POST)
+	public ModelAndView photoUpload(HttpServletRequest request, @ModelAttribute("photo") Photo photo) throws Exception{
+		
+		String callBack = photo.getCallBack();
+		String callBackFunc = photo.getCallBackFunc();
+		String fileResult = "";
+		
+		if (photo.getFileData() != null && photo.getFileData().getOriginalFilename() != null && !photo.getFileData().getOriginalFilename().equals("")) {
+			String originalName = photo.getFileData().getOriginalFilename();
+			String ext = originalName.substring(originalName.lastIndexOf(".")+1);
+			String defaultPath = request.getSession().getServletContext().getRealPath("/");
+			String path = defaultPath + "se2" + File.separator + "photo_upload" + File.separator;
+			File file = new File(path);
+			
+			if (!file.exists()) {
+				file.mkdirs();
+			}
+			
+			String realName = UUID.randomUUID().toString() + "." + ext;
+			
+			photo.getFileData().transferTo(new File(path+realName));
+			fileResult += "&bNewLine=true&sFileName=" + originalName + "&sFileURL=/se2/photo_upload/" + realName;
+		} else {
+			fileResult += "&errstr=error";
+		}
+		
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("redirect:"+callBack+"?callBackFunc="+callBackFunc+fileResult);
+		return modelAndView;
+	}
+	/*단일파일 업로드 : end*/
 	
 	
 

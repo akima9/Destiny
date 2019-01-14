@@ -94,6 +94,17 @@
 			
 			alert(address);
 			
+			var items = [];
+			$('input:checkbox[type=checkbox]:checked').each(function () {
+			    items.push($(this).val());
+			});
+			
+			alert(items);
+			
+			$("input:hidden[name='firstInterest']").val( items[0] );
+			$("input:hidden[name='secondInterest']").val( items[1] );
+			$("input:hidden[name='thirdInterest']").val( items[2] );
+			
 			/*if($("#authnumPhoneWirte").text() != "" && $("#authnumPhoneWirte ").text() != null){
 				alert("휴대폰 인증이 제대로 수행되지 않았습니다. 인증번호를 확인해 주세요.");
 				return;
@@ -442,7 +453,17 @@
 		 });
 		 
 		 
-		
+		 $(function() {
+			 $('.inter-chk').on('change', function() {
+				
+				if( $('.inter-chk:checked').length <= 2 ) {
+					$('.inter-chk').attr('disabled', false);
+				} else {
+					$('.inter-chk').attr('disabled', true);
+					$('.inter-chk:checked').attr('disabled', false);
+				}
+			}); 
+		 });
 		 
 		
 		
@@ -596,6 +617,43 @@
 		    </div>
 		  </div>
 		  
+		  <!--  //////////////////////////////////////////////////관심사 선택 /////////////////////////////////////////////////////////////////////////////-->
+		<div class="form-group">
+		   <label for="profile" class="col-sm-offset-1 col-sm-3 control-label">관심사(3개 선택)</label>
+		   <div class="col-sm-4">
+				<input type="checkbox" name="selectInterest" value="10000" class="inter-chk" id="sltInter01"><label for="sltInter01">아웃도어/여행</label>
+				<input type="checkbox" name="selectInterest" value="10001" class="inter-chk" id="sltInter02"><label for="sltInter02">운동/스포츠</label>
+				<input type="checkbox" name="selectInterest" value="10002" class="inter-chk" id="sltInter03"><label for="sltInter03">인문학/책/글</label>
+				<br/><br/>
+				<input type="checkbox" name="selectInterest" value="10003" class="inter-chk" id="sltInter04"><label for="sltInter04">업종/직무</label>
+				<input type="checkbox" name="selectInterest" value="10004" class="inter-chk" id="sltInter05"><label for="sltInter05">외국/언어</label>
+				<input type="checkbox" name="selectInterest" value="10005" class="inter-chk" id="sltInter06"><label for="sltInter06">문화/공연/축제</label>
+				<br/><br/>
+				<input type="checkbox" name="selectInterest" value="10006" class="inter-chk" id="sltInter07"><label for="sltInter07">음악/악기</label>
+				<input type="checkbox" name="selectInterest" value="10007" class="inter-chk" id="sltInter08"><label for="sltInter08">공예/만들기</label>
+				<input type="checkbox" name="selectInterest" value="10008" class="inter-chk" id="sltInter09"><label for="sltInter09">댄스/무용</label>
+				<br/><br/>
+				<input type="checkbox" name="selectInterest" value="10009" class="inter-chk" id="sltInter10"><label for="sltInter10">봉사활동</label>
+				<input type="checkbox" name="selectInterest" value="10010" class="inter-chk" id="sltInter11"><label for="sltInter11">사교/인맥</label>
+				<input type="checkbox" name="selectInterest" value="10011" class="inter-chk" id="sltInter12"><label for="sltInter12">차/오토바이</label>
+				<br/><br/>
+				<input type="checkbox" name="selectInterest" value="10012" class="inter-chk" id="sltInter13"><label for="sltInter13">사진/영상</label>
+				<input type="checkbox" name="selectInterest" value="10013" class="inter-chk" id="sltInter14"><label for="sltInter14">야구관람</label>
+				<input type="checkbox" name="selectInterest" value="10014" class="inter-chk" id="sltInter15"><label for="sltInter15">게임/오락</label>
+				<br/><br/>
+				<input type="checkbox" name="selectInterest" value="10015" class="inter-chk" id="sltInter16"><label for="sltInter16">요리/제조</label>
+				<input type="checkbox" name="selectInterest" value="10016" class="inter-chk" id="sltInter17"><label for="sltInter17">반려동물</label>
+				<input type="checkbox" name="selectInterest" value="10017" class="inter-chk" id="sltInter18"><label for="sltInter18">가족/결혼</label>
+				<br/><br/>
+				<input type="checkbox" name="selectInterest" value="10018" class="inter-chk" id="sltInter19"><label for="sltInter19">함께해요</label>
+				<br/><br/>
+				</div>
+				<input type="hidden" name="firstInterest">
+				<input type="hidden" name="secondInterest">
+				<input type="hidden" name="thirdInterest">
+			</div>
+			<!--  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+			
 		  
 		  
 		  <div id="addConfirm" class="form-group">

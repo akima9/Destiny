@@ -27,7 +27,13 @@
 			$( "button:contains('이전')" ).on("click" , function() {
 				 history.go(-1);
 			});
+				
+			$("a[href='#' ]:contains('YES')").on("click", function() {
+				self.location = "../chatting/mainChatting.jsp"
+			});
 		});
+		
+		
 	</script>
 	
 	<!--  ///////////////////////// CSS ////////////////////////// -->
@@ -35,6 +41,9 @@
  		body {
             padding-top : 50px;
         }
+        
+        .row{text-align : center; }
+        .count{font-size: 25px; font-weight: bold; color: #6666ff;}
      </style>
      
 </head>
@@ -46,19 +55,33 @@
 	       <h3 class=" text-info">이상형 찾기 결과</h3>
 	    </div>
 	
-		<div class="row">
+		<%-- <div class="row">
 	  		<div class="col-xs-4 col-md-2"><strong>성별</strong></div>
 			<div class="col-xs-8 col-md-4">${totalCount}</div>
-		</div>
+		</div> --%>
 		
-		<hr/>
+		<div class="row" >
+			회원님이 찾는 조건의 회원수는
+			<span class="count">${totalCount}명</span> 입니다.
+		</div>
+		<br/><br/>
+		<div class="row">
+			회원님이 찾는 조건의 회원 중 현재 접속중인 회원의 수는<br/>
+			<span class="count">~~~명</span> 입니다.
+		</div>
+		<br/><br/>
 		
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2 "><strong>나이</strong></div>
-			<div class="col-xs-8 col-md-4">${user.userName}</div>
+	  		<div class="col-xs-4 col-md-2"><strong>관심사</strong></div>
+			<div class="col-xs-8 col-md-4">${find.selectInterest}</div>
 		</div>
+		<br/><br/>
 		
-		<br/>
+		<div class="row">
+			채팅을 시작하겠습니까?
+			<br/><br/>
+			<a href="#">YES</a>
+		</div>
 		
 		<div class="row">
 			<div class="col-md-12 text-center ">

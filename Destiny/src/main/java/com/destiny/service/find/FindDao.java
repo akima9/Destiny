@@ -13,7 +13,7 @@ public interface FindDao {
 	public int getUserResult(Find find) throws Exception;
 	
 	//모임리스트 찾기
-	public Map<String, Object> getMeetingResult(String locationName) throws Exception;
+	public List<Find> getMeetingResult(Find find) throws Exception;
 	
 	// 게시판 Page 처리를 위한 전체Row(totalCount)  return
 	public int getTotalCount(Find find) throws Exception ;

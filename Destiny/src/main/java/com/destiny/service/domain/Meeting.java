@@ -4,11 +4,13 @@ public class Meeting {
 	
 	private	int		meetingNo;
 	private	String	role;
+	private	String	meetingMasterId;
 	private	String	titleImg;
+	private String 	meetingName;
 	private	String	meetingDetail;
 	private	String	meetingRule;
 	private	String	meetingLocation;
-	private	String	crew;
+	private	String	crewLimit;
 	private	String	meetingDate;
 	private	String	snooze;
 	private	String	meetingTime;
@@ -17,6 +19,10 @@ public class Meeting {
 	private	String	profile;
 	private	String	actCountNo;
 	private	String	interview;
+	private int		interestNo;
+	private String	interestName;
+	private String	meetingCenter;
+	
 	public int getMeetingNo() {
 		return meetingNo;
 	}
@@ -28,6 +34,13 @@ public class Meeting {
 	}
 	public void setRole(String role) {
 		this.role = role;
+	}
+	
+	public String getMeetingMasterId() {
+		return meetingMasterId;
+	}
+	public void setMeetingMasterId(String meetingMasterId) {
+		this.meetingMasterId = meetingMasterId;
 	}
 	public String getTitleImg() {
 		return titleImg;
@@ -54,10 +67,10 @@ public class Meeting {
 		this.meetingLocation = meetingLocation;
 	}
 	public String getCrew() {
-		return crew;
+		return crewLimit;
 	}
 	public void setCrew(String crew) {
-		this.crew = crew;
+		this.crewLimit = crewLimit;
 	}
 	public String getMeetingDate() {
 		return meetingDate;
@@ -107,16 +120,46 @@ public class Meeting {
 	public void setInterview(String interview) {
 		this.interview = interview;
 	}
+	public int getInterestNo() {
+		return interestNo;
+	}
+	public void setInterestNo(int interestNo) {
+		this.interestNo = interestNo;
+	}
+	public String getInterestName() {
+		return interestName;
+	}
+	public void setInterestName(String interestName) {
+		this.interestName = interestName;
+	}
+	public String getMeetingName() {
+		return meetingName;
+	}
+	public void setMeetingName(String meetingName) {
+		this.meetingName = meetingName;
+	}
+	public String getCrewLimit() {
+		return crewLimit;
+	}
+	public void setCrewLimit(String crewLimit) {
+		this.crewLimit = crewLimit;
+	}
+	public String getMeetingCenter() {
+		return meetingCenter;
+	}
+	public void setMeetingCenter(String meetingCenter) {
+		this.meetingCenter = meetingCenter;
+	}
 	@Override
 	public String toString() {
-		return "Meeting [meetingNo=" + meetingNo + ", role=" + role + ", titleImg=" + titleImg + ", meetingDetail="
-				+ meetingDetail + ", meetingRule=" + meetingRule + ", meetingLocation=" + meetingLocation + ", crew="
-				+ crew + ", meetingDate=" + meetingDate + ", snooze=" + snooze + ", meetingTime=" + meetingTime
+		return "Meeting [meetingNo=" + meetingNo + ", role=" + role + ", meetingMasterId=" + meetingMasterId
+				+ ", titleImg=" + titleImg + ", meetingName=" + meetingName + ", meetingDetail=" + meetingDetail
+				+ ", meetingRule=" + meetingRule + ", meetingLocation=" + meetingLocation + ", crewLimit=" + crewLimit
+				+ ", meetingDate=" + meetingDate + ", snooze=" + snooze + ", meetingTime=" + meetingTime
 				+ ", meetingDay=" + meetingDay + ", meetingDues=" + meetingDues + ", profile=" + profile
-				+ ", actCountNo=" + actCountNo + ", interview=" + interview + "]";
+				+ ", actCountNo=" + actCountNo + ", interview=" + interview + ", interestNo=" + interestNo
+				+ ", interestName=" + interestName + ", meetingCenter=" + meetingCenter + "]";
 	}
 	
-
-
 
 }

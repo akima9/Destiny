@@ -47,7 +47,7 @@ if (ServletFileUpload.isMultipartContent(request)){
                     //파일 기본경로
                     String dftFilePath = request.getSession().getServletContext().getRealPath("/");
                     //파일 기본경로 _ 상세경로
-                    String filePath = dftFilePath + "SE2" + File.separator +"upload" + File.separator;
+                    String filePath = dftFilePath + "se2" + File.separator +"upload" + File.separator;
                      
                     File file = null;
                     file = new File(filePath);

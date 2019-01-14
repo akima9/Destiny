@@ -335,7 +335,7 @@
     		sUploadURL;
     	
     	/*수정된 부분 : start*/
-    	sUploadURL= './fileUploaderHtml5.jsp'; 	//upload URL
+    	sUploadURL= 'fileUploaderHtml5.jsp'; 	//upload URL
     	/*수정된 부분 : end*/
     	/*sUploadURL= 'file_uploader_html5.php'; 	//upload URL*/
     	
@@ -482,8 +482,8 @@
  	function callFileUploader (){
  		oFileUploader = new jindo.FileUploader(jindo.$("uploadInputBox"),{
  			/*추가된 부분 : start*/
- 			sUrl  : './fileUpLoader.jsp',
- 			sCallback : './callback.html',
+ 			sUrl  : '/fileUpLoader.jsp',
+ 			sCallback : '/callback.html',
  			/*추가된 부분 : end*/
  			
  			/*sUrl  : location.href.replace(/\/[^\/]*$/, '') + '/file_uploader.php',	//샘플 URL입니다.

@@ -15,6 +15,11 @@
 			$("form").attr("method","POST").attr("action","/info/addRestaurantInfo").submit();
 		});
 		
+		$("input[value='사진']").on("click",function(){
+			alert("눌림^^");
+			self.location = "/info/"
+		});
+		
 	});
 </script>
 </head>
@@ -25,6 +30,10 @@
 			<tr>
 				<td>제목</td>
 				<td><input type="text" name="title"></td>
+			</tr>
+			<tr>
+				<td>파일첨부</td>
+				<td><input type="button" value="사진"></td>
 			</tr>
 			<tr>
 				<td>내용</td>

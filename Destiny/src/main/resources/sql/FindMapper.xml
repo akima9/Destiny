@@ -48,9 +48,9 @@
 			AND u.gender=#{selectGender}
 			AND ar.age_range_no=#{selectAge}
 			AND u.address LIKE '%'||#{town}||'%'
-			AND( u.first_interest=#{selectInterest01} OR u.first_interest=#{selectInterest01} OR u.first_interest=#{selectInterest01}
-				OR u.second_interest=#{selectInterest02} OR u.second_interest=#{selectInterest02} OR u.second_interest=#{selectInterest02}
-				OR u.third_interest=#{selectInterest03} OR u.third_interest=#{selectInterest03} OR u.third_interest=#{selectInterest03})
+			AND( u.first_interest=#{selectInterest01} OR u.first_interest=#{selectInterest02} OR u.first_interest=#{selectInterest03}
+				OR u.second_interest=#{selectInterest01} OR u.second_interest=#{selectInterest02} OR u.second_interest=#{selectInterest03}
+				OR u.third_interest=#{selectInterest01} OR u.third_interest=#{selectInterest02} OR u.third_interest=#{selectInterest03})
 		GROUP BY ar.age_range_no
 	 </select>
 	 <!--  ///////////////////////////////////////////////////////////////////////////////////////////////////////////// -->

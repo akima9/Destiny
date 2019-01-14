@@ -47,17 +47,38 @@
 			
 			});
 		
-			$(function() {
-				
-				$("button:contains('찾기')").on("click", function() {
-					//$("form").attr("method", "GET").attr("action", "/find/getUserResult").submit();
-					$("form").attr("method", "POST").attr("action", "/find/getUserResult").submit();
-				});		
-				$( "button:contains('이전')" ).on("click" , function() {
-					 history.go(-1);
-				});
+		$(function() {
+			
+			$("button:contains('찾기')").on("click", function() {
+				if( $('.selectGender:checked').length != 1 ){
+					alert('성별 체크');
+				} else if( $('select[name="selectAge"]').val() == 0 ) {
+					alert('나이 선택');
+				} else if($('select[name="city"]').val() == 0 || $('select[name="town"]').val() == 0){
+					alert('지역 선택');
+				} else if( $('.inter-chk:checked').length != 3 ) {
+					alert('체크박스 클릭');
+				} else {
+					$("form").attr("method", "POST").attr("action", "/find/getUserResult").submit();	
+				}
+			});		
+			
+			$( "button:contains('이전')" ).on("click" , function() {
+				 history.go(-1);
 			});
-		</script>
+			
+			// checkbox controll
+			$('.inter-chk').on('change', function() {
+				
+				if( $('.inter-chk:checked').length <= 2 ) {
+					$('.inter-chk').attr('disabled', false);
+				} else {
+					$('.inter-chk').attr('disabled', true);
+					$('.inter-chk:checked').attr('disabled', false);
+				}
+			});
+		});
+	</script>
 		
 		<style>
 	       body > div.container{
@@ -79,21 +100,24 @@
 	    <!-- form Start /////////////////////////////////////-->
 		<form class="form-horizontal">
 			
-		
+			<!--  ////성별 선택///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
 			<div class="row">
 		  		<div class="col-xs-4 col-md-2"><strong>성별</strong></div>
 				<div class="col-xs-8 col-md-4">
-					<input type="radio" id="selectGender" name="selectGender" value='M'>남자</input>
-					<input type="radio" id="selectGender" name="selectGender" value='W'>여자</input>
+					<input type="radio" class="selectGender" name="selectGender" value='M'>남자</input>
+					<input type="radio" class="selectGender" name="selectGender" value='W'>여자</input>
 				</div>
 			</div>
+			<!--  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
 			
 			<hr/>
 			
+			<!--  //////////////////////////////////////////////////연령 선택 /////////////////////////////////////////////////////////////////////////////-->
 			 <div class="row">
 		  		<div class="col-xs-4 col-md-2 "><strong>연령</strong></div>
 				<div class="col-xs-8 col-md-4">
-					<select name="selectAge">
+					<select class="form-control" name="selectAge">
+						<option value="">원하는 연령을 선택해 주세요.</option>
 						<option value="1">20세 ~ 24세</option>
 						<option value="2">24세 ~ 29세</option>
 						<option value="3">30세 ~ 34세</option>
@@ -104,13 +128,15 @@
 					</select>
 				</div>
 			</div>
+			<!--  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
 			
 			<hr/>
 			
+			<!--  //////////////////////////////////////////////////지역 선택 /////////////////////////////////////////////////////////////////////////////-->
 			<div class="row">
 		  		<div class="col-xs-4 col-md-2 "><strong>지역</strong></div>
 				<div class="col-xs-8 col-md-4">
-					<select class="form-control" id="city">
+					<select class="form-control" id="city" name="city">
 						<option value="">도/시를 선택해 주세요</option>
 				      	<option value="서울">서울</option>
 				      	<option value="경기">경기</option>
@@ -138,41 +164,42 @@
 		      </select>
 				</div>
 			</div>
+			<!--  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
 			
-			<hr/>
-			
+			<!--  //////////////////////////////////////////////////관심사 선택 /////////////////////////////////////////////////////////////////////////////-->
 			<div class="row">
 		  		<div class="col-xs-4 col-md-2"><strong>관심사</strong></div>
 				<div class="col-xs-8 col-md-4">
-					<input type="checkbox" name="selectInterest" value="10000">아웃도어/여행
-					<input type="checkbox" name="selectInterest" value="10001">운동/스포츠
-					<input type="checkbox" name="selectInterest" value="10002">인문학/책/글
+					<input type="checkbox" name="selectInterest" value="10000" class="inter-chk" id="sltInter01"><label for="sltInter01">아웃도어/여행</label>
+					<input type="checkbox" name="selectInterest" value="10001" class="inter-chk" id="sltInter02"><label for="sltInter02">운동/스포츠</label>
+					<input type="checkbox" name="selectInterest" value="10002" class="inter-chk" id="sltInter03"><label for="sltInter03">인문학/책/글</label>
 					<br/><br/>
-					<input type="checkbox" name="selectInterest" value="10003">업종/직무
-					<input type="checkbox" name="selectInterest" value="10004">외국/언어
-					<input type="checkbox" name="selectInterest" value="10005">문화/공연/축제
+					<input type="checkbox" name="selectInterest" value="10003" class="inter-chk" id="sltInter04"><label for="sltInter04">업종/직무</label>
+					<input type="checkbox" name="selectInterest" value="10004" class="inter-chk" id="sltInter05"><label for="sltInter05">외국/언어</label>
+					<input type="checkbox" name="selectInterest" value="10005" class="inter-chk" id="sltInter06"><label for="sltInter06">문화/공연/축제</label>
 					<br/><br/>
-					<input type="checkbox" name="selectInterest" value="10006">음악/악기
-					<input type="checkbox" name="selectInterest" value="10007">공예/만들기
-					<input type="checkbox" name="selectInterest" value="10008">댄스/무용
+					<input type="checkbox" name="selectInterest" value="10006" class="inter-chk" id="sltInter07"><label for="sltInter07">음악/악기</label>
+					<input type="checkbox" name="selectInterest" value="10007" class="inter-chk" id="sltInter08"><label for="sltInter08">공예/만들기</label>
+					<input type="checkbox" name="selectInterest" value="10008" class="inter-chk" id="sltInter09"><label for="sltInter09">댄스/무용</label>
 					<br/><br/>
-					<input type="checkbox" name="selectInterest" value="10009">봉사활동
-					<input type="checkbox" name="selectInterest" value="10010">사교/인맥
-					<input type="checkbox" name="selectInterest" value="10011">차/오토바이
+					<input type="checkbox" name="selectInterest" value="10009" class="inter-chk" id="sltInter10"><label for="sltInter10">봉사활동</label>
+					<input type="checkbox" name="selectInterest" value="10010" class="inter-chk" id="sltInter11"><label for="sltInter11">사교/인맥</label>
+					<input type="checkbox" name="selectInterest" value="10011" class="inter-chk" id="sltInter12"><label for="sltInter12">차/오토바이</label>
 					<br/><br/>
-					<input type="checkbox" name="selectInterest" value="10012">사진/영상
-					<input type="checkbox" name="selectInterest" value="10013">야구관람
-					<input type="checkbox" name="selectInterest" value="10014">게임/오락
+					<input type="checkbox" name="selectInterest" value="10012" class="inter-chk" id="sltInter13"><label for="sltInter13">사진/영상</label>
+					<input type="checkbox" name="selectInterest" value="10013" class="inter-chk" id="sltInter14"><label for="sltInter14">야구관람</label>
+					<input type="checkbox" name="selectInterest" value="10014" class="inter-chk" id="sltInter15"><label for="sltInter15">게임/오락</label>
 					<br/><br/>
-					<input type="checkbox" name="selectInterest" value="10015">요리/제조
-					<input type="checkbox" name="selectInterest" value="10016">반려동물
-					<input type="checkbox" name="selectInterest" value="10017">가족/결혼
+					<input type="checkbox" name="selectInterest" value="10015" class="inter-chk" id="sltInter16"><label for="sltInter16">요리/제조</label>
+					<input type="checkbox" name="selectInterest" value="10016" class="inter-chk" id="sltInter17"><label for="sltInter17">반려동물</label>
+					<input type="checkbox" name="selectInterest" value="10017" class="inter-chk" id="sltInter18"><label for="sltInter18">가족/결혼</label>
 					<br/><br/>
-					<input type="checkbox" name="selectInterest" value="10018">함께해요
+					<input type="checkbox" name="selectInterest" value="10018" class="inter-chk" id="sltInter19"><label for="sltInter19">함께해요</label>
 					<br/><br/>
 				</div>
 			</div>
-
+			<!--  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+			
 			<hr/>
 			
 			<div class="row">

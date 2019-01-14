@@ -11,6 +11,6 @@ public interface FindService {
 	public int getUserResult(Find find) throws Exception;
 	
 	//모임찾기
-	public Map<String, Object> getMeetingResult(String locationName) throws Exception;
+	public Map<String, Object> getMeetingResult(Find find) throws Exception;
 
 }

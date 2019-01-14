@@ -7,37 +7,37 @@
 <mapper namespace="MeetingMapper">
  	
  	
-	<resultMap id="MeetingMapper" type="com.destiny.service.domain.Meeting">
-		<result property="userId" 			column="user_id" 			jdbcType="VARCHAR"/>
-		<result property="password" 		column="password" 			jdbcType="VARCHAR" />
-		<result property="nickName"			column="nick_name" 			jdbcType="VARCHAR" />
-		<result property="userGrade"		column="user_grade" 		jdbcType="CHAR"/>
-		<result property="email" 			column="email" 				jdbcType="VARCHAR" />
-		<result property="birthday" 		column="birthday" 			jdbcType="DATE" />
-		<result property="address" 			column="address" 			jdbcType="VARCHAR" />
-		<result property="profile" 			column="profile_img" 		jdbcType="VARCHAR" />
-		<result property="gender" 			column="gender" 			jdbcType="CHAR" />
-		<result property="phone" 			column="phone" 				jdbcType="VARCHAR" />
-		<result property="attendCount" 		column="attend_count" 		jdbcType="INTEGER" />
-		<result property="lastLoginDay" 	column="last_login_day" 	jdbcType="DATE" />
-		<result property="warningCount" 	column="warning_count" 		jdbcType="INTEGER" />
-		<result property="myType" 			column="my_type" 			jdbcType="NUMERIC" />
-		<result property="firstType" 		column="first_type" 		jdbcType="NUMERIC" />
-		<result property="secondType" 		column="second_type" 		jdbcType="NUMERIC" />
-		<result property="thirdType" 		column="thrid_type" 		jdbcType="NUMERIC" />
-		<result property="firstInterest" 	column="first_interest" 	jdbcType="NUMERIC" />
-		<result property="secondInterest" 	column="second_interest" 	jdbcType="NUMERIC" />
-		<result property="thirdInterest" 	column="third_interest" 	jdbcType="NUMERIC" />			
+	<resultMap id="meetingSelectMap" type="com.destiny.service.domain.Meeting">
+		<result property="meetingNo" 			column="meeting_no" 		jdbcType="NUMERIC"/>
+		<result property="role" 				column="ffffff" 			jdbcType="VARCHAR" />
+		<result property="titleImg"				column="title_img" 			jdbcType="VARCHAR" />
+		<result property="meetingDetail"		column="meeting_detail" 	jdbcType="VARCHAR"/>
+		<result property="meetingRule" 			column="meeting_rule" 		jdbcType="VARCHAR" />
+		<result property="meetingLocation" 		column="meeting_location" 	jdbcType="VARCHAR" />
+		<result property="crew" 				column="ffffff" 			jdbcType="VARCHAR" />
+		<result property="meetingDate" 			column="meeting_date" 		jdbcType="DATE" />
+		<result property="snooze" 				column="snooze" 			jdbcType="CHAR" />
+		<result property="meetingDay" 			column="meeting_day" 		jdbcType="VARCHAR" />
+		<result property="meetingDues" 			column="meeting_dues" 		jdbcType="VARCHAR" />
+		<result property="profile" 				column="master_profile_img" jdbcType="VARCHAR" />
+		<result property="interestNo" 			column="INTEREST_NO" 		jdbcType="NUMERIC"/>
+		<result property="interestName" 			column="INTEREST_NAME" 	jdbcType="VARCHAR" />
 	</resultMap>
-	
 
-	 <!-- SQL : SELECT ONE -->
-	 <select 	id="getUser"	parameterType="string"	resultMap="MeetingMapper">
-		SELECT
-		user_id, nick_name, user_grade, password, email, birthday, address, profile_img, gender, phone, attend_count, last_login_day, warning_count, my_type, first_type, second_type, thrid_type, first_interest, second_interest, third_interest	
-		FROM users 
-		WHERE user_id = #{value}
+	 <select 	id="getInterestList" resultMap="meetingSelectMap">
+		SELECT* FROM interest
 	 </select>
+	 
+	 <insert 	id="addMeeting"		parameterType="com.destiny.service.domain.Meeting">
+	 	 <selectKey keyProperty="meetingNo" resultType="int" order="BEFORE">
+    		select seq_meeting_no FROM DUAL
+  		  </selectKey>
+	 	
+	 	INSERT
+		INTO meeting( meeting_no, role, meeting_master_id, title_img , meeting_name , meeting_detail , meeting_rule, meeting_location, meeting_crew_limit,meeting_date, snooze) 
+		VALUES	 ( #{meetingNo}, #{role}, #{meetingMasterId} , #{titleImg} , #{meetingName},to_char(to_date(#{manuDate:DATE},'yyyy/mm/dd')) ,
+		 #{price} , #{fileName} , SYSDATE , #{brandId.brand_id})
+	 </insert>
 	 
 	 
 </mapper>

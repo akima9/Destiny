@@ -31,6 +31,21 @@ public class UserDaoImpl implements UserDao{
 	}
 
 	@Override
+	public User getUserByNickName(String nickName) throws Exception {
+		return sqlSession.selectOne("UserMapper.getUserByNickName", nickName);
+	}
+	
+	@Override
+	public User getUserByEmail(String email) throws Exception {
+		return sqlSession.selectOne("UserMapper.getUserByEmail", email);
+	}
+
+	@Override
+	public User getUserByPhone(String phone) throws Exception {
+		return sqlSession.selectOne("UserMapper.getUserByPhone", phone);
+	}
+
+	@Override
 	public void attendLogin(User user) throws Exception {
 		sqlSession.update("UserMapper.attendLogin", user);
 	}

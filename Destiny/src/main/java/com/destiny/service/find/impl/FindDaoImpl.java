@@ -1,5 +1,7 @@
 package com.destiny.service.find.impl;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -29,21 +31,19 @@ public class FindDaoImpl implements FindDao{
 
 	@Override
 	public int getUserResult(Find find) throws Exception {
-		System.out.println("DAOIMPL : " + find);
 		return sqlSession.selectOne("FindMapper.getUserResult", find);
 	}
 
 	@Override
-	public Map<String, Object> getMeetingResult(String locationName) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Find> getMeetingResult(Find find) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("find", find);
+		return sqlSession.selectList("FindMapper.getMeetingResult", map);
 	}
 
 	@Override
 	public int getTotalCount(Find find) throws Exception {
 		return sqlSession.selectOne("FindMapper.getTotalCount", find);
 	}
-
-
 
 }

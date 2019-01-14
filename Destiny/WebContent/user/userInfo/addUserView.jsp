@@ -143,10 +143,10 @@
 			}*/
 				
 			var value = "";	
-			if( $("input:text[name='phone2']").val() != ""  &&  $("input:text[name='phone3']").val() != "") {
-				var value = $("select[name='phone1']").val() + "-" 
-									+ $("input[name='phone2']").val() + "-" 
-									+ $("input[name='phone3']").val();
+			if( $("input:text[id='phone2']").val() != ""  &&  $("input:text[id='phone3']").val() != "") {
+				var value = $("select[id='phone1']").val() + "-" 
+									+ $("input[id='phone2']").val() + "-" 
+									+ $("input[id='phone3']").val();
 			}
 
 			
@@ -264,10 +264,10 @@
 			 $("#phoneConfirm").on("click" , function() {
 				 
 				var value = "";	
-				if( $("input:text[name='phone2']").val() != ""  &&  $("input:text[name='phone3']").val() != "") {
-					var value = $("select[name='phone1']").val()  
-										+ $("input[name='phone2']").val() 
-										+ $("input[name='phone3']").val();
+				if( $("input:text[id='phone2']").val() != ""  &&  $("input:text[id='phone3']").val() != "") {
+					var value = $("select[id='phone1']").val()  
+										+ $("input[id='phone2']").val() 
+										+ $("input[id='phone3']").val();
 				}
 				//alert("입력된 번호 : "+value);
 				
@@ -420,15 +420,15 @@
 		 });
 		 
 		 $(function() {
-			 $('input[name="phone3"]').on("keyup", function(){
+			 $('input[name="phoneBe"]').on("keyup", function(){
 				 
 				 var phone = "";	
-					if( $("input:text[name='phone2']").val() != ""  &&  $("input:text[name='phone3']").val() != "") {
-						var phone = $("select[name='phone1']").val() + "-"
-											+ $("input[name='phone2']").val() + "-"
-											+ $("input[name='phone3']").val();
+					if( $("input:text[id='phone2']").val() != ""  &&  $("input:text[id='phone3']").val() != "") {
+						var phone = $("select[id='phone1']").val() + "-"
+											+ $("input[id='phone2']").val() + "-"
+											+ $("input[id='phone3']").val();
 					}
-					alert("입력된 번호 : "+phone);
+					//alert("입력된 번호 : "+phone);
 				 
 				 $.ajax({
 					 url : "/user/json/getUserByPhone/"+phone,
@@ -441,13 +441,20 @@
 					 success : function(JSONData, status){
 						 //alert(JSONData.user);
 						 if(JSONData.user != null){
-							$('input[name="phone3"]').css('background-color','pink');
+							$('input[name="phoneBe"]').css('background-color','pink');
 							$('#authnumPhoneWirte').text("이미 존재하는 번호입니다.");
 						 } else {
-							$('input[name="phone3"]').css('background-color','white');
-							$('#authnumPhoneWirte').text("");
+							 if(phone.length < 13){
+								$('input[name="phoneBe"]').css('background-color','pink');
+								$('#authnumPhoneWirte').text("전화번호 형식이 아닙니다.");
+							 } else {
+								$('input[name="phoneBe"]').css('background-color','rgb(207, 253, 170)');
+								$('#authnumPhoneWirte').text("");
+							 }
 						 }
-					 }
+					 }, error : function(what){
+							
+					}
 				 });
 			 });
 		 });
@@ -558,7 +565,7 @@
 		  <div class="form-group">
 		    <label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">휴대전화번호</label>
 		     <div class="col-sm-2">
-		      <select class="form-control" name="phone1" id="phone1">
+		      <select class="form-control" name="phoneBe" id="phone1">
 				  	<option value="010" >010</option>
 					<option value="011" >011</option>
 					<option value="016" >016</option>
@@ -567,10 +574,10 @@
 			 </select>
 		    </div>
 		    <div class="col-sm-2">
-		      <input type="text" class="form-control" id="phone2" name="phone2" placeholder="번호">
+		      <input type="text" class="form-control" id="phone2" name="phoneBe" placeholder="번호">
 		    </div>
 		    <div class="col-sm-2">
-		      <input type="text" class="form-control" id="phone3" name="phone3" placeholder="번호">
+		      <input type="text" class="form-control" id="phone3" name="phoneBe" placeholder="번호">
 		    </div>
 		     <div class="col-sm-2">
 		       <button id="phoneConfirm" type="button" class="btn btn-info">휴대폰 인증</button>

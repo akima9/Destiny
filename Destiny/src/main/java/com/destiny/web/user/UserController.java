@@ -68,6 +68,8 @@ public class UserController {
 		//Business Logic
 		User dbUser=userService.getUser(user.getUserId());
 		
+		session.setAttribute("me", dbUser);
+		
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("redirect:/index.jsp");
 		
@@ -146,6 +148,8 @@ public class UserController {
 	public ModelAndView logout(HttpSession session, HttpServletRequest request, @PathVariable String userId) throws Exception{
 		
 		System.out.println("/user/logout : GET");
+		
+		session.invalidate();
 		
 		//========================================현제 접속자에서 해당 회원 remove, 접속자수 update====================================
 		ServletContext applicationScope = request.getSession().getServletContext();
@@ -246,6 +250,14 @@ public class UserController {
 
 		userService.addUser(user);
 		
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="getUserView", method=RequestMethod.GET)
+	public ModelAndView getUserView(HttpSession session) throws Exception{
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("forward:/user/userInfo/getUserView.jsp");
+		modelAndView.addObject("me", session.getAttribute("me"));
 		return modelAndView;
 	}
 	

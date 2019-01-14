@@ -38,7 +38,7 @@ public class LogonCheckInterceptor extends HandlerInterceptorAdapter {
 		
 		//==> 로그인 유무확인
 		HttpSession session = request.getSession(true);
-		User user = (User)session.getAttribute("user");
+		User user = (User)session.getAttribute("me");
 
 		//==> 로그인한 회원이라면...
 		if(   user != null   )  {
@@ -61,7 +61,7 @@ public class LogonCheckInterceptor extends HandlerInterceptorAdapter {
 			String uri = request.getRequestURI();
 			
 			if(		uri.indexOf("addUser") != -1 ||	uri.indexOf("login") != -1 		|| 
-					uri.indexOf("json") != -1 || uri.indexOf("User") != -1){
+					uri.indexOf("json") != -1 ){
 				System.out.println("[ 로그 시도 상태 .... ]");
 				System.out.println("[ LogonCheckInterceptor end........]\n");
 				return true;

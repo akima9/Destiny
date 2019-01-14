@@ -58,31 +58,106 @@
 		//=============이메일" 유효성Check  Event 처리 =============
 		 $(function() {
 			 
-			 $("input[name='email']").on("change" , function() {
+			 $("input[name='email']").on("keyup" , function() {
 					
 				 var email=$("input[name='email']").val();
-			    
-				 if(email != "" && (email.indexOf('@') < 1 || email.indexOf('.') == -1) ){
-			    	alert("이메일 형식이 아닙니다.");
-			     }
+				 
+				 $.ajax({
+					 url : "/user/json/getUserByEmail/"+email,
+					 method : "GET",
+					 datatype : "json",
+					 headers : {
+						"Accept" : "application/json",
+						"Content-Type" : "application/json"
+					 },
+					 success : function(JSONData, status){
+						 //alert(JSONData.user);
+						 if(JSONData.user != null){
+							 if(JSONData.user.email != JSONData.me.email){
+								$('input[name="email"]').css('background-color','pink');
+								$('#authnumWirte').text("이미 존재하는 이메일입니다.");
+							 } else {
+								$('input[name="email"]').css('background-color','white');
+								$('#authnumWirte').text("");
+							 }
+							
+						 } else {
+				
+							if(email != "" && (email.indexOf('@') < 1 || email.indexOf('.') == -1) ){
+								$('input[name="email"]').css('background-color','pink');
+								$('#authnumWirte').text("이메일 형식이 아닙니다.");
+						     } else {
+						    	 $('input[name="email"]').css('background-color','rgb(207, 253, 170)');
+								$('#authnumWirte').text("");
+						     }
+						 }
+					 },
+					error : function(what){
+						
+					}
+				 });
 			});
-			 
 		});	
+		
+		//=============전화번호" 유효성Check  Event 처리 =============
+		$(function() {
+			 $('input[name="phoneBe"]').on("keyup", function(){
+				 
+				 var phone = "";	
+					if( $("input:text[id='phone2']").val() != ""  &&  $("input:text[id='phone3']").val() != "") {
+						var phone = $("select[id='phone1']").val() + "-"
+											+ $("input[id='phone2']").val() + "-"
+											+ $("input[id='phone3']").val();
+					}
+					//alert("입력된 번호 : "+phone);
+				 
+				 $.ajax({
+					 url : "/user/json/getUserByPhone/"+phone,
+					 method : "GET",
+					 datatype : "json",
+					 headers : {
+						"Accept" : "application/json",
+						"Content-Type" : "application/json"
+					 },
+					 success : function(JSONData, status){
+						 //alert(JSONData.user);
+						 if(JSONData.user != null){
+							 if(JSONData.user.phone != JSONData.me.phone){
+								$('input[name="phoneBe"]').css('background-color','pink');
+								$('#authnumPhoneWirte').text("이미 존재하는 번호입니다.");
+							 } else {
+								$('input[name="phoneBe"]').css('background-color','white');
+								$('#authnumPhoneWirte').text("");
+							 }
+						 } else {
+							 if(phone.length < 13){
+								$('input[name="phoneBe"]').css('background-color','pink');
+								$('#authnumPhoneWirte').text("전화번호 형식이 아닙니다.");
+							 } else {
+								$('input[name="phoneBe"]').css('background-color','rgb(207, 253, 170)');
+								$('#authnumPhoneWirte').text("");
+							 }
+						 }
+					 }
+				 });
+			 });
+		 });
+			
 		
 		///////////////////////////////////////////////////////////////////////
 		function fncUpdateUser() {
-			var name=$("input[name='userName']").val();
+			var name=$("input[name='nickName']").val();
 			
 			if(name == null || name.length <1){
-				alert("이름은  반드시 입력하셔야 합니다.");
+				alert("닉네임은  반드시 입력하셔야 합니다.");
 				return;
 			}
 				
 			var value = "";	
-			if( $("input[name='phone2']").val() != ""  &&  $("input[name='phone3']").val() != "") {
-				var value = $("option:selected").val() + "-" 
-									+ $("input[name='phone2']").val() + "-" 
-									+ $("input[name='phone3']").val();
+			if( $("input[id='phone2']").val() != ""  &&  $("id[name='phone3']").val() != "") {
+				var value = $("select[id='phone1']").val() + "-" 
+									+ $("input[id='phone2']").val() + "-" 
+									+ $("input[id='phone3']").val();
 			}
 			
 			//Debug...
@@ -94,39 +169,140 @@
 		
 
 		 $(function() {
-				$( "#address1" ).on("change" , function() {
-					
-					var idx = $("#address1").index(this);
-					var city = $(this).val();
-					
-					alert(city + idx);
-					
-					$.ajax( 
-							{
-								url : "/user/json/getLocationList/"+city ,
-								method : "GET" ,
-								dataType : "json" ,
-								headers : {
-									"Accept" : "application/json",
-									"Content-Type" : "application/json"
-								},
-								success : function(JSONData , status) {
-									alert("성공?");
-									var list="";
-									//list+="<option></option>";
-									for(i in JSONData.list){
-										var town = JSONData.list[i].townName;
-										//alert(town);
-										list+="<option value='"+town+"'>"+town+"</option>";
-								}
-									$( "#address2:eq("+idx+")" ).empty().append(list);
-								},
-								error : function(what){
-									alert("ㅇㅇ?" + what);
-								}
-						});
+			$( "#address1" ).on("change" , function() {
+				
+				var idx = $("#address1").index(this);
+				var city = $(this).val();
+				
+				alert(city + idx);
+				
+				$.ajax( 
+					{
+						url : "/user/json/getLocationList/"+city ,
+						method : "GET" ,
+						dataType : "json" ,
+						headers : {
+							"Accept" : "application/json",
+							"Content-Type" : "application/json"
+						},
+						success : function(JSONData , status) {
+							alert("성공?");
+							var list="";
+							//list+="<option></option>";
+							for(i in JSONData.list){
+								var town = JSONData.list[i].townName;
+								//alert(town);
+								list+="<option value='"+town+"'>"+town+"</option>";
+						}
+							$( "#address2:eq("+idx+")" ).empty().append(list);
+						},
+						error : function(what){
+							alert("ㅇㅇ?" + what);
+						}
+					});
 				});
 			});
+		 
+		 
+		 $(function() {
+			 $('.inter-chk').on('change', function() {
+				
+				if( $('.inter-chk:checked').length <= 2 ) {
+					$('.inter-chk').attr('disabled', false);
+				} else {
+					$('.inter-chk').attr('disabled', true);
+					$('.inter-chk:checked').attr('disabled', false);
+				}
+			}); 
+		 });
+		 
+		 
+		 $(function(){
+			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+			 $("#emailConfirm").on("click" , function() {
+				 
+				 var email = $("input[name='email']").val();
+				 alert("입력된 이메일"+email);
+				 email = email.substr(0, email.length - 3);
+					
+				 $.ajax({
+					url : "/user/json/emailAuth/"+email,
+					method : "POST",
+					headers : {
+						"Accept" : "application/json",
+						"Content-Type" : "application/json"
+					},
+					datatype : "json",
+					success : function(JSONData, status){
+						alert("메일이 발송되었습니다. 메일을 확인해 주세요.");
+						
+						$('input[name="authnum"]').on("keyup", function(){
+							 //alert("좀 돼바 슈밤");
+							 if(JSONData.authNum == $("#authnum").val()){
+								 //alert("맞음");
+								 $('input[name="authnum"]').css('background-color','rgb(207, 253, 170)');
+								 $("#authnumWirte").text("");
+							 } else {
+								 //alert("아님");
+								 $('input[name="authnum"]').css('background-color','pink');
+								 $("#authnumWirte").text("잘못된 인증번호입니다.");
+							 }
+						 });							
+							
+						},
+						error : function(what){
+							alert("이메일이 전송되지 않았습니다. 유효한 이메일을 입력하여 주십시요.");
+					}
+				});
+			});
+		 });
+		 
+
+		 $(function() {
+			 $("#phoneConfirm").on("click" , function() {
+				 
+				var value = "";	
+				if( $("input:text[id='phone2']").val() != ""  &&  $("input:text[id='phone3']").val() != "") {
+					var value = $("select[id='phone1']").val()  
+										+ $("input[id='phone2']").val() 
+										+ $("input[id='phone3']").val();
+				}
+				//alert("입력된 번호 : "+value);
+				
+				$.ajax({
+					url : "/user/json/SMSAuth/"+value,
+					method : "POST",
+					headers : {
+						"Accept" : "application/json",
+						"Content-Type" : "application/json"
+					},
+					datatype : "json",
+					success : function(JSONData, status){
+						alert("SMS가 발송되었습니다. 확인해 주세요.");
+						
+						$('input[name="authnumPhone"]').on("keyup", function(){
+							 //alert("좀 돼바 슈밤");
+							 if(JSONData.authNum == $("#authnumPhone").val()){
+								 //alert("맞음");
+								 $('input[name="authnumPhone"]').css('background-color','rgb(207, 253, 170)');
+								 $("#authnumPhoneWirte").text("");
+							 } else {
+								 //alert("아님");
+								 $('input[name="authnumPhone"]').css('background-color','pink');
+								 $("#authnumPhoneWirte").text("잘못된 인증번호입니다.");
+							 }
+						 });
+					},
+					error : function(what){
+						alert("SMS가 전송되지 않았습니다. 유효한 번호를 입력하여 주십시요.");
+					}
+				 });
+			 });
+		 });
+		 
+		 
+		 
+		 
 	
 	</script>
 	
@@ -193,7 +369,7 @@
 		     	 구/군
 		      <select class="form-control" id="address2" name="address2">
 		      	<c:forEach var="location" items="${list}">
-					<option value="${location.townName}">${location.townName}</option>
+					<option value="${location.townName}" >${location.townName}</option>
 				</c:forEach>
 		      </select>
 		      <input type="hidden" name="address">
@@ -204,7 +380,7 @@
 		  <div class="form-group">
 		    <label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">휴대전화번호</label>
 		     <div class="col-sm-2">
-		      <select class="form-control" name="phone1" id="phone1">
+		      <select class="form-control" name="phoneBe" id="phone1">
 				  	<option value="010" ${ ! empty phone[0] && phone[0] == "010" ? "selected" : ""  } >010</option>
 					<option value="011" ${ ! empty phone[0] && phone[0] == "011" ? "selected" : ""  } >011</option>
 					<option value="016" ${ ! empty phone[0] && phone[0] == "016" ? "selected" : ""  } >016</option>
@@ -213,10 +389,10 @@
 				</select>
 		    </div>
 		    <div class="col-sm-2">
-		      <input type="text" class="form-control" id="phone2" name="phone2" value="${ ! empty phone[1] ? phone[1] : ''}"  placeholder="변경번호">
+		      <input type="text" class="form-control" id="phone2" name="phoneBe" value="${ ! empty phone[1] ? phone[1] : ''}"  placeholder="변경번호">
 		    </div>
 		    <div class="col-sm-2">
-		      <input type="text" class="form-control" id="phone3" name="phone3" value="${ ! empty phone[2] ? phone[2]: ''}"   placeholder="변경번호">
+		      <input type="text" class="form-control" id="phone3" name="phoneBe" value="${ ! empty phone[2] ? phone[2]: ''}"   placeholder="변경번호">
 		    </div>
 		    <div class="col-sm-2">
 		       <button id="phoneConfirm" type="button" class="btn btn-info">휴대폰 인증</button>

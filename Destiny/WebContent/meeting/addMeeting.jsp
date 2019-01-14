@@ -351,19 +351,20 @@
    		<!-- form Start /////////////////////////////////////-->
 		<form class="form-horizontal">
 		<input type="hidden" name="meetingMasterId" value="aaaaa">
+		<input type="hidden" name="masterProfileImg" value="aaaaa">
 		 <div  class="form-group col-sm-4 col-md-4">
 		 	<select id="interest" class="form-control" name="category">
 		 		<option >관심사</option>
 		 		<c:forEach var="Meeting" items="${list}">
 		 		
-		 			<option name="interestNo" value="${Meeting.interestName}">${Meeting.interestName }</option>
+		 			<option value="${Meeting.interestName}">${Meeting.interestName }</option>
 		 		
 		 		</c:forEach>
 		 	</select>
 		 </div>
 		
 		 <div class="form-group col-sm-8 col-md-8">
-		 	<input  id="selectedInterest" type="text" class="form-control" placeholder="관심사를 선택해 주세요">
+		 	<input  name="interestName" id="selectedInterest" type="text" class="form-control" placeholder="관심사를 선택해 주세요">
 		 </div>
 		 
 		 <div class="form-group col-sm-6 col-md-6">
@@ -426,7 +427,7 @@
 		 </div>
 		
 		 <div id="crewNo" class="form-group col-sm-2 col-md-2">
-		 	<select name="crewLimit" class="form-control">
+		 	<select name="meetingCrewLimit" class="form-control">
 		 		<option value="1">1</option>
 		 		<option value="2">2</option>
 		 		<option value="3">3</option>
@@ -459,7 +460,7 @@
 		 </div>
 		 
 		 <div  id="dateOrDay" class="form-group col-sm-4 col-md-4">
-		 	<input 	type="text" id="datepicker" readonly="readonly" class="form-control" placeholder="모임날짜or요일"/>
+		 	<input 	type="text" id="datepicker" readonly="readonly" class="form-control" placeholder="모임날짜or요일" name="meetingDate"/>
 		 	
 		 	<!--  
 		 	<select class="form-control">
